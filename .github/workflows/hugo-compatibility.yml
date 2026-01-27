@@ -64,7 +64,7 @@ jobs:
           hugo new site test-site
           cd test-site
           mkdir -p themes
-          ln -s ../../theme themes/hugo-tranquilpeak-theme-4000
+          ln -s ../theme themes/hugo-tranquilpeak-theme-4000
 
       - name: Copy example content
         run: |
@@ -97,7 +97,7 @@ jobs:
       - name: Build Hugo site
         working-directory: test-site
         run: |
-          hugo --minify --verbose
+          hugo --minify --logLevel info
 
       - name: Check build output
         run: |

@@ -64,33 +64,11 @@ jobs:
           mkdir -p themes
           ln -s ../../theme themes/hugo-tranquilpeak-theme-4000
 
-      - name: Copy example content
+      - name: Copy example site files
         run: |
           cp -r theme/exampleSite/content/* test-site/content/
           cp -r theme/exampleSite/static/* test-site/static/
-
-      - name: Configure site for Hugo version
-        run: |
-          cd test-site
-          cat > hugo.toml <<EOF
-          baseURL = "https://example.org/"
-          languageCode = "en-us"
-          defaultContentLanguage = "en-us"
-          title = "Hugo tranquilpeak theme - CI Test"
-          theme = "hugo-tranquilpeak-theme-4000"
-          canonifyurls = true
-
-          [pagination]
-            pagerSize = 7
-
-          [permalinks]
-            posts = "/:year/:month/:slug/"
-
-          [taxonomies]
-            tag = "tags"
-            category = "categories"
-            archive = "archives"
-          EOF
+          cp theme/exampleSite/config.toml test-site/config.toml
 
       - name: Build Hugo site
         working-directory: test-site

@@ -28,10 +28,12 @@ How can I migrate my current version? Please read [CHANGELOG.md](https://github.
 ## Summary
 
 - [General](#general)
+- [Hugo Version Compatibility](#hugo-version-compatibility)
 - [Features](#features)
 - [Quick start](#quick-start)
 - [Demo](#demo)
 - [Documentation](#documentation)
+- [Testing](#testing)
 - [Contributing](#contributing)
 - [Showcase](#showcase)
 - [License](#license)
@@ -42,7 +44,27 @@ How can I migrate my current version? Please read [CHANGELOG.md](https://github.
 - **Fork Maintainer**: hugo-tranquilpeak-theme-4000 community
 - **Version**: 0.5.3-BETA (based on Hexo version 3.1.0)
 - **Original Compatibility**: Hugo v0.53
-- **Tested Compatibility**: ✅ Hugo v0.152.2 (See [HUGO_COMPATIBILITY_TEST.md](HUGO_COMPATIBILITY_TEST.md) for details)
+- **Current Compatibility**: ✅ Hugo v0.110.0 through v0.152.2 (42 minor versions)
+
+## Hugo Version Compatibility
+
+| Hugo Version Range | Status | Notes |
+|-------------------|--------|-------|
+| **v0.152.2** | ✅ Tested | Latest tested version |
+| **v0.140.0 - v0.151.x** | ✅ Tested | Modern versions (v0.140, v0.135 verified) |
+| **v0.128.0 - v0.139.x** | ✅ Tested | **Breaking change**: `paginate` → `[pagination] pagerSize` |
+| **v0.110.0 - v0.127.x** | ✅ Tested | Verified working (v0.110, v0.120 tested) |
+| **v0.100.0 - v0.109.x** | ⚠️ Untested | May have shortcode resolution issues |
+| **v0.80.0 - v0.99.x** | ⚠️ Untested | May have shortcode resolution issues |
+| **v0.53.0 - v0.79.x** | ⚠️ Untested | Original target was v0.53 |
+| **< v0.53.0** | ❌ Not Supported | Pre-release compatibility unknown |
+
+**Legend:**
+- ✅ **Tested** - Verified working in automated CI tests
+- ⚠️ **Untested** - Not tested in CI, compatibility unknown
+- ❌ **Not Supported** - Known issues or untested older versions
+
+See [HUGO_COMPATIBILITY_TEST.md](HUGO_COMPATIBILITY_TEST.md) for detailed test results and migration guide.
 
 ## Features
 

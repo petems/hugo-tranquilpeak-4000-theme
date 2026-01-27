@@ -1,10 +1,20 @@
-# Tranquilpeak
+# Tranquilpeak 4000
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/thibaudlepretre.svg?style=social&label=%40thibaudlepretre)](https://twitter.com/intent/follow?screen_name=thibaudlepretre)
 
 A gorgeous responsive theme for Hugo blog framework.
 
 ![Tranquilpeak](https://raw.githubusercontent.com/kakawait/hugo-tranquilpeak-theme/master/showcase.png)
+
+## About This Fork
+
+**hugo-tranquilpeak-theme-4000** is a maintained fork of the original [hugo-tranquilpeak-theme](https://github.com/kakawait/hugo-tranquilpeak-theme) by kakawait. This fork aims to:
+
+- **Keep the theme alive**: Pick up community fixes and improvements from the original repository
+- **Modernize**: Update to support modern Hugo versions (beyond the original v0.53 compatibility)
+- **Enhance**: Add new features and capabilities while maintaining the elegant design
+
+The original theme has not been actively maintained, so this fork serves as a continuation of the project for users who want to use Tranquilpeak with current Hugo versions.
 
 ## Alpha/Beta versions
 
@@ -27,9 +37,11 @@ How can I migrate my current version? Please read [CHANGELOG.md](https://github.
 
 ## General
 
-- **Authors**: [Thibaud Leprêtre (kakawait)](https://github.com/kakawait) and [Louis Barranqueiro (LouisBarranqueiro)](https://github.com/LouisBarranqueiro)
+- **Original Authors**: [Thibaud Leprêtre (kakawait)](https://github.com/kakawait) and [Louis Barranqueiro (LouisBarranqueiro)](https://github.com/LouisBarranqueiro)
+- **Fork Maintainer**: hugo-tranquilpeak-theme-4000 community
 - **Version**: 0.5.3-BETA (based on Hexo version 3.1.0)
-- **Compatibility**: Hugo v0.53
+- **Original Compatibility**: Hugo v0.53
+- **Tested Compatibility**: ✅ Hugo v0.152.2 (See [HUGO_COMPATIBILITY_TEST.md](HUGO_COMPATIBILITY_TEST.md) for details)
 
 ## Features
 
@@ -138,7 +150,9 @@ Read [guidelines for contributing](https://github.com/kakawait/hugo-tranquilpeak
 
 ## Credits
 
-*Hugo* version of Tranquilpeak is a based on original *Hexo* version https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak. This version is simply a port to *Hugo* static site generator.
+*Hugo* version of Tranquilpeak is based on the original *Hexo* version https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak. The Hugo port was created by [kakawait](https://github.com/kakawait).
+
+This **hugo-tranquilpeak-theme-4000** fork is maintained by the community to continue development and provide compatibility with modern Hugo versions.
 
 ## License
 

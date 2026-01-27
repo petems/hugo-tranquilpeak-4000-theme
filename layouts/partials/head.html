@@ -48,7 +48,7 @@
     {{ end }}
     <!--EXTERNAL STYLES END-->
     <!--STYLES-->
-    <link rel="stylesheet" href="{{ "css/style-h6ccsoet3mzkbb0wngshlfbaweimexgqcxj0h5hu4h82olsdzz6wmqdkajm.min.css" | absURL }}" />
+    <link rel="stylesheet" href="{{ "css/style-fwtsnb1u51ectibifizumjwxut2rxoepwozipldfylc7kjpsm9sowbdsfuq.min.css" | absURL }}" />
     <!--STYLES END-->
     {{ range .Site.Params.customCSS }}
       {{ if isset . "href" }}
@@ -58,10 +58,6 @@
       {{ end }}
     {{ end }}
 
-    {{ if or .Params.googleAnalytics.async .Params.ga.async }}
-      {{ template "_internal/google_analytics_async.html" . }}
-    {{ else }}
-      {{ template "_internal/google_analytics.html" . }}
-    {{ end }}
+    {{ template "_internal/google_analytics.html" . }}
     {{ partial "head_end.html" . }}
   </head>

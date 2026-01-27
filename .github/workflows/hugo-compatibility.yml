@@ -94,10 +94,19 @@ jobs:
             archive = "archives"
           EOF
 
+      - name: Debug theme setup
+        run: |
+          echo "=== Checking symlink ==="
+          ls -la test-site/themes/
+          echo "=== Checking theme files ==="
+          ls -la test-site/themes/hugo-tranquilpeak-theme-4000/ | head -20 || echo "Theme directory not accessible"
+          echo "=== Checking theme.toml ==="
+          cat test-site/themes/hugo-tranquilpeak-theme-4000/theme.toml 2>/dev/null || echo "theme.toml not found"
+
       - name: Build Hugo site
         working-directory: test-site
         run: |
-          hugo --minify --logLevel info
+          hugo --minify
 
       - name: Check build output
         run: |

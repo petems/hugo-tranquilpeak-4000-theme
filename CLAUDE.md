@@ -17,6 +17,7 @@ This fork aims to:
 
 - **Original**: Hugo v0.53
 - **Tested**: ✅ Hugo v0.152.2 (January 2026)
+- **CI Testing**: Automated testing against Hugo versions 0.80.0-0.152.2
 - **Known Issues**: See [HUGO_COMPATIBILITY_TEST.md](HUGO_COMPATIBILITY_TEST.md) for detailed compatibility report and migration guide
 
 ### Technical Stack
@@ -146,6 +147,71 @@ Since this is hugo-tranquilpeak-theme-4000 (a maintained fork):
    - Users must update their site config when upgrading
 
 See HUGO_COMPATIBILITY_TEST.md for complete list of changes and migration guide.
+
+## Continuous Integration
+
+### GitHub Actions Workflow
+
+The repository includes automated compatibility testing via `.github/workflows/hugo-compatibility.yml`:
+
+- **Triggers**: Pushes to master/main/develop, pull requests, manual dispatch
+- **Test Matrix**: Hugo versions 0.80.0 through 0.152.2
+- **Strategy**: fail-fast disabled to test all versions even if one fails
+- **Steps**:
+  1. Checkout theme code
+  2. Install Node.js and npm dependencies
+  3. Build theme assets with Grunt (`npm run prod`)
+  4. Install specific Hugo version
+  5. Create test site and link theme
+  6. Copy example content
+  7. Configure site with modern syntax
+  8. Build Hugo site with `--minify --verbose`
+  9. Verify output (public/ directory and index.html exist)
+  10. Upload artifacts on failure for debugging
+
+### Running Tests Locally
+
+To replicate the CI test locally:
+
+```bash
+# Build the theme
+npm ci
+npm run prod
+
+# Create a test site
+cd ..
+hugo new site test-site
+cd test-site
+mkdir -p themes
+ln -s ../hugo-tranquilpeak-theme-4000 themes/
+
+# Copy example content
+cp -r ../hugo-tranquilpeak-theme-4000/exampleSite/content/* content/
+cp -r ../hugo-tranquilpeak-theme-4000/exampleSite/static/* static/
+
+# Create modern config
+cat > hugo.toml <<EOF
+baseURL = "https://example.org/"
+theme = "hugo-tranquilpeak-theme-4000"
+[pagination]
+  pagerSize = 7
+EOF
+
+# Build
+hugo --minify --verbose
+```
+
+### Adding New Hugo Versions
+
+To test against new Hugo versions, edit `.github/workflows/hugo-compatibility.yml` and add to the matrix:
+
+```yaml
+matrix:
+  hugo-version:
+    - '0.160.0'  # Add new version here
+    - '0.152.2'
+    # ... existing versions
+```
 
 ## Testing
 

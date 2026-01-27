@@ -1,5 +1,6 @@
 # Tranquilpeak 4000
 
+[![Hugo Compatibility Test](https://github.com/petems/hugo-tranquilpeak-theme-4000/actions/workflows/hugo-compatibility.yml/badge.svg)](https://github.com/petems/hugo-tranquilpeak-theme-4000/actions/workflows/hugo-compatibility.yml)
 [![Twitter Follow](https://img.shields.io/twitter/follow/thibaudlepretre.svg?style=social&label=%40thibaudlepretre)](https://twitter.com/intent/follow?screen_name=thibaudlepretre)
 
 A gorgeous responsive theme for Hugo blog framework.
@@ -141,6 +142,18 @@ To install and configure the theme, consult the following documentation : [user 
 ### For developers
 
 To understand the code, the workflow and edit the theme, consult the following documentation : [developer documentation](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/developer.md)
+
+## Testing
+
+This fork includes automated compatibility testing against multiple Hugo versions via GitHub Actions.
+
+**Tested Hugo Versions:**
+- 0.80.0 through 0.152.2 (CI tested)
+- Additional versions tested on-demand
+
+**CI Status:** Check the badge at the top of this README for current build status.
+
+**For detailed compatibility information:** See [HUGO_COMPATIBILITY_TEST.md](HUGO_COMPATIBILITY_TEST.md)
 
 ## Contributing
 

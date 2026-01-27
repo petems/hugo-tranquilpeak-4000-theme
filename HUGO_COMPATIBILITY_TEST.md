@@ -135,8 +135,38 @@ Build time:       96 ms (initial), 23 ms (subsequent)
 8. **Test with Hugo Modules** system (modern dependency management)
 9. **Review deprecated config options** across all features
 
+## Continuous Integration Testing
+
+### Automated Compatibility Tests
+
+The repository now includes GitHub Actions workflow (`.github/workflows/hugo-compatibility.yml`) that automatically tests the theme against multiple Hugo versions:
+
+**Test Matrix:**
+- Hugo 0.152.2 (latest tested)
+- Hugo 0.140.0
+- Hugo 0.135.0
+- Hugo 0.128.0 (pagination change version)
+- Hugo 0.120.0
+- Hugo 0.110.0
+- Hugo 0.100.0
+- Hugo 0.90.0
+- Hugo 0.80.0
+
+**CI Process:**
+1. Builds theme assets with Grunt
+2. Installs specific Hugo version
+3. Creates test site with example content
+4. Builds site with modern configuration
+5. Verifies successful build output
+
+**Monitoring:**
+- Check the badge in README.md for current CI status
+- View detailed results: https://github.com/petems/hugo-tranquilpeak-theme-4000/actions
+
 ## Conclusion
 
 The theme successfully works with Hugo v0.152.2 with minimal changes. The main blocker was the Google Analytics template, which has been fixed. Users will need to update their site configuration for the pagination setting, but this is a one-line change.
 
 The theme is **production-ready** for modern Hugo versions with the applied fix.
+
+**Automated testing** ensures continued compatibility as new Hugo versions are released.

@@ -64,7 +64,7 @@ jobs:
           hugo new site test-site
           cd test-site
           mkdir -p themes
-          ln -s ../theme themes/hugo-tranquilpeak-theme-4000
+          ln -s ../../theme themes/hugo-tranquilpeak-theme-4000
 
       - name: Copy example content
         run: |

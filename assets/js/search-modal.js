@@ -1,73 +1,73 @@
-(function() {
+(() => {
   'use strict';
 
-  var SearchModal = function() {
-    this.searchModal = document.getElementById('algolia-search-modal');
-    this.openButtons = document.querySelectorAll('.open-algolia-search');
-    this.closeButton = this.searchModal ? this.searchModal.querySelector('.close-button') : null;
-    this.searchForm = document.getElementById('algolia-search-form');
-    this.searchInput = document.getElementById('algolia-search-input');
-    this.results = this.searchModal ? this.searchModal.querySelector('.results') : null;
-    this.noResults = this.searchModal ? this.searchModal.querySelector('.no-result') : null;
-    this.resultsCount = this.searchModal ? this.searchModal.querySelector('.results-count') : null;
-    this.algolia = typeof algoliaIndex !== 'undefined' ? algoliaIndex : null;
-  };
+  class SearchModal {
+    constructor() {
+      this.searchModal = document.getElementById('algolia-search-modal');
+      this.openButtons = document.querySelectorAll('.open-algolia-search');
+      this.closeButton = this.searchModal ? this.searchModal.querySelector('.close-button') : null;
+      this.searchForm = document.getElementById('algolia-search-form');
+      this.searchInput = document.getElementById('algolia-search-input');
+      this.results = this.searchModal ? this.searchModal.querySelector('.results') : null;
+      this.noResults = this.searchModal ? this.searchModal.querySelector('.no-result') : null;
+      this.resultsCount = this.searchModal
+        ? this.searchModal.querySelector('.results-count')
+        : null;
+      this.algolia = typeof algoliaIndex !== 'undefined' ? algoliaIndex : null;
+    }
 
-  SearchModal.prototype = {
-    run: function() {
-      var self = this;
-
-      self.openButtons.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          self.open();
+    run() {
+      this.openButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          this.open();
         });
       });
 
-      document.addEventListener('keyup', function(event) {
-        var target = event.target || event.srcElement;
-        var tagName = target.tagName.toUpperCase();
+      document.addEventListener('keyup', (event) => {
+        const target = event.target || event.srcElement;
+        const tagName = target.tagName.toUpperCase();
         if (tagName === 'INPUT' || tagName === 'TEXTAREA') {
           return;
         }
 
-        if (event.keyCode === 83 && !self.isVisible(self.searchModal)) {
-          self.open();
+        if (event.keyCode === 83 && !this.isVisible(this.searchModal)) {
+          this.open();
         }
       });
 
-      if (self.searchModal) {
-        self.searchModal.addEventListener('click', function(e) {
-          if (e.target === this) {
-            self.close();
+      if (this.searchModal) {
+        this.searchModal.addEventListener('click', (e) => {
+          if (e.target === this.searchModal) {
+            this.close();
           }
         });
       }
 
-      if (self.closeButton) {
-        self.closeButton.addEventListener('click', function() {
-          self.close();
+      if (this.closeButton) {
+        this.closeButton.addEventListener('click', () => {
+          this.close();
         });
       }
 
-      document.addEventListener('keyup', function(e) {
-        if (e.keyCode === 27 && self.isVisible(self.searchModal)) {
-          self.close();
+      document.addEventListener('keyup', (e) => {
+        if (e.keyCode === 27 && this.isVisible(this.searchModal)) {
+          this.close();
         }
       });
 
-      if (self.searchForm) {
-        self.searchForm.addEventListener('submit', function(event) {
+      if (this.searchForm) {
+        this.searchForm.addEventListener('submit', (event) => {
           event.preventDefault();
-          self.search(self.searchInput.value);
+          this.search(this.searchInput.value);
         });
       }
-    },
+    }
 
-    isVisible: function(el) {
+    isVisible(el) {
       return el && el.style.display !== 'none' && el.offsetParent !== null;
-    },
+    }
 
-    open: function() {
+    open() {
       if (this.isVisible(this.searchModal)) {
         return;
       }
@@ -75,27 +75,26 @@
       this.showSearchModal();
       this.showOverlay();
       if (this.searchInput) this.searchInput.focus();
-    },
+    }
 
-    close: function() {
+    close() {
       this.hideSearchModal();
       this.hideOverlay();
       if (this.searchInput) this.searchInput.blur();
-    },
+    }
 
-    search: function(search) {
-      var self = this;
+    search(search) {
       if (!this.algolia) return;
-      this.algolia.search(search, function(err, content) {
+      this.algolia.search(search, (err, content) => {
         if (!err) {
-          self.showResults(content.hits);
-          self.showResultsCount(content.nbHits);
+          this.showResults(content.hits);
+          this.showResultsCount(content.nbHits);
         }
       });
-    },
+    }
 
-    showResults: function(posts) {
-      var html = '';
+    showResults(posts) {
+      let html = '';
 
       /**
        * Escape text content before building HTML strings.
@@ -103,13 +102,13 @@
        * @returns {String} Escaped HTML.
        */
       function escapeHtml(value) {
-        return String(value || '').replace(/[&<>"']/g, function(character) {
+        return String(value || '').replace(/[&<>"']/g, (character) => {
           return {
             '&': '&amp;',
             '<': '&lt;',
             '>': '&gt;',
             '"': '&quot;',
-            '\'': '&#39;'
+            "'": '&#39;'
           }[character];
         });
       }
@@ -120,7 +119,7 @@
        * @returns {String} Safe URL or '#'.
        */
       function sanitizeUrl(value) {
-        var url = String(value || '');
+        const url = String(value || '');
 
         if (!url) {
           return '#';
@@ -133,12 +132,12 @@
         return escapeHtml(url);
       }
 
-      posts.forEach(function(post) {
-        var lang = window.navigator.userLanguage || window.navigator.language || post.lang;
-        var permalink = sanitizeUrl(post.link || post.permalink);
-        var thumbnailUrl = sanitizeUrl(post.thumbnailImageUrl);
-        var title = escapeHtml(post.title);
-        var excerpt = escapeHtml(post.excerpt);
+      posts.forEach((post) => {
+        const lang = window.navigator.userLanguage || window.navigator.language || post.lang;
+        const permalink = sanitizeUrl(post.link || post.permalink);
+        const thumbnailUrl = sanitizeUrl(post.thumbnailImageUrl);
+        const title = escapeHtml(post.title);
+        const excerpt = escapeHtml(post.excerpt);
 
         html += '<div class="media">';
         if (thumbnailUrl !== '#') {
@@ -165,65 +164,62 @@
         html += '</div>';
       });
       if (this.results) this.results.innerHTML = html;
-    },
+    }
 
-    showSearchModal: function() {
+    showSearchModal() {
       if (!this.searchModal) return;
       this.searchModal.style.display = '';
       this.searchModal.style.transition = 'opacity 0.3s ease';
       this.searchModal.style.opacity = '0';
       this.searchModal.offsetHeight;
       this.searchModal.style.opacity = '1';
-    },
+    }
 
-    hideSearchModal: function() {
-      var self = this;
+    hideSearchModal() {
       if (!this.searchModal) return;
       this.searchModal.style.opacity = '0';
-      setTimeout(function() {
-        self.searchModal.style.display = 'none';
+      setTimeout(() => {
+        this.searchModal.style.display = 'none';
       }, 300);
-    },
+    }
 
-    showResultsCount: function(count) {
+    showResultsCount(count) {
       if (!this.resultsCount) return;
-      var string = '';
+      let string = '';
       if (count < 1) {
         string = this.resultsCount.dataset.messageZero;
         if (this.noResults) this.noResults.style.display = '';
-      }
-      else if (count === 1) {
+      } else if (count === 1) {
         string = this.resultsCount.dataset.messageOne;
         if (this.noResults) this.noResults.style.display = 'none';
-      }
-      else if (count > 1) {
+      } else if (count > 1) {
         string = this.resultsCount.dataset.messageOther.replace(/\{n\}/, count);
         if (this.noResults) this.noResults.style.display = 'none';
       }
       this.resultsCount.innerHTML = string;
-    },
+    }
 
-    showOverlay: function() {
+    showOverlay() {
       if (document.querySelector('.overlay')) {
         document.body.style.overflow = 'hidden';
         return;
       }
 
-      var overlay = document.createElement('div');
+      const overlay = document.createElement('div');
       overlay.className = 'overlay';
       document.body.appendChild(overlay);
       overlay.offsetHeight;
       overlay.style.transition = 'opacity 0.3s ease';
       overlay.style.opacity = '1';
       document.body.style.overflow = 'hidden';
-    },
+    }
 
-    hideOverlay: function() {
-      var overlays = document.querySelectorAll('.overlay');
+    hideOverlay() {
+      const overlays = document.querySelectorAll('.overlay');
 
-      overlays.forEach(function(overlay) {
+      overlays.forEach((overlay) => {
         overlay.style.opacity = '0';
-        setTimeout(function() {
+        setTimeout(() => {
           if (overlay.parentNode) {
             overlay.parentNode.removeChild(overlay);
           }
@@ -232,11 +228,11 @@
 
       document.body.style.overflow = 'auto';
     }
-  };
+  }
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', () => {
     if (typeof algoliaIndex !== 'undefined') {
-      var searchModal = new SearchModal();
+      const searchModal = new SearchModal();
       searchModal.run();
     }
   });

@@ -1,4 +1,4 @@
-(function() {
+(() => {
   'use strict';
 
   // Filter posts by using their categories on categories page : `/categories`
@@ -8,163 +8,154 @@
    * @param {String} tagsArchivesElem
    * @constructor
    */
-  var TagsFilter = function(tagsArchivesElem) {
-    var container = document.querySelector(tagsArchivesElem);
-    this.form = container.querySelector('#filter-form');
-    this.inputSearch = container.querySelector('#filter-form input[name=tag]');
-    this.archiveResult = container.querySelector('.archive-result');
-    this.tags = container.querySelectorAll('.tag');
-    this.posts = container.querySelectorAll('.archive');
-    this.containerSelector = tagsArchivesElem;
-    // Html data attribute without `data-` of `.archive` element which contains the name of tag
-    this.dataTag = 'tag';
-    this.messages = {
-      zero: this.archiveResult.dataset.messageZero,
-      one: this.archiveResult.dataset.messageOne,
-      other: this.archiveResult.dataset.messageOther
-    };
-  };
+  class TagsFilter {
+    constructor(tagsArchivesElem) {
+      const container = document.querySelector(tagsArchivesElem);
+      this.form = container.querySelector('#filter-form');
+      this.inputSearch = container.querySelector('#filter-form input[name=tag]');
+      this.archiveResult = container.querySelector('.archive-result');
+      this.tags = container.querySelectorAll('.tag');
+      this.posts = container.querySelectorAll('.archive');
+      this.containerSelector = tagsArchivesElem;
+      // Html data attribute without `data-` of `.archive` element which contains the name of tag
+      this.dataTag = 'tag';
+      this.messages = {
+        zero: this.archiveResult.dataset.messageZero,
+        one: this.archiveResult.dataset.messageOne,
+        other: this.archiveResult.dataset.messageOther
+      };
+    }
 
-  TagsFilter.prototype = {
     /**
      * Run TagsFilter feature
      * @return {void}
      */
-    run: function() {
-      var self = this;
-
+    run() {
       // Detect keystroke of the user
-      self.inputSearch.addEventListener('keyup', function() {
-        self.filter(self.getSearch());
+      this.inputSearch.addEventListener('keyup', () => {
+        this.filter(this.getSearch());
       });
 
       // Block submit action
-      self.form.addEventListener('submit', function(e) {
+      this.form.addEventListener('submit', (e) => {
         e.preventDefault();
       });
-    },
+    }
 
     /**
      * Get the search entered by user
      * @returns {String} the name of tag entered by the user
      */
-    getSearch: function() {
+    getSearch() {
       return this.inputSearch.value.toLowerCase();
-    },
+    }
 
     /**
      * Show related posts form a tag and hide the others
      * @param {String} tag - name of a tag
      * @return {void}
      */
-    filter: function(tag) {
+    filter(tag) {
       if (tag === '') {
         this.showAll();
         this.showResult(-1);
-      }
-      else {
+      } else {
         this.hideAll();
         this.showPosts(tag);
         this.showResult(this.countTags(tag));
       }
-    },
+    }
 
     /**
      * Display results of the search
      * @param {Number} numbTags - Number of tags found
      * @return {void}
      */
-    showResult: function(numbTags) {
+    showResult(numbTags) {
       if (numbTags === -1) {
         this.archiveResult.innerHTML = '';
         this.archiveResult.style.display = 'none';
-      }
-      else if (numbTags === 0) {
+      } else if (numbTags === 0) {
         this.archiveResult.innerHTML = this.messages.zero;
         this.archiveResult.style.display = '';
-      }
-      else if (numbTags === 1) {
+      } else if (numbTags === 1) {
         this.archiveResult.innerHTML = this.messages.one;
         this.archiveResult.style.display = '';
-      }
-      else {
+      } else {
         this.archiveResult.innerHTML = this.messages.other.replace(/\{n\}/, numbTags);
         this.archiveResult.style.display = '';
       }
-    },
+    }
 
     /**
      * Count number of tags
      * @param {String} tag
      * @returns {Number}
      */
-    countTags: function(tag) {
-      var self = this;
-      var count = 0;
+    countTags(tag) {
+      let count = 0;
 
-      this.posts.forEach(function(post) {
-        var dataValue = post.dataset[self.dataTag] || '';
+      this.posts.forEach((post) => {
+        const dataValue = post.dataset[this.dataTag] || '';
         if (dataValue.toLowerCase().indexOf(tag) !== -1) {
           count++;
         }
       });
 
       return count;
-    },
+    }
 
     /**
      * Show all posts from a tag
      * @param {String} tag - name of a tag
      * @return {void}
      */
-    showPosts: function(tag) {
-      var self = this;
-
-      this.tags.forEach(function(tagElement) {
-        var dataValue = tagElement.dataset[self.dataTag] || '';
+    showPosts(tag) {
+      this.tags.forEach((tagElement) => {
+        const dataValue = tagElement.dataset[this.dataTag] || '';
         if (dataValue.toLowerCase().indexOf(tag) !== -1) {
           tagElement.style.display = '';
         }
       });
 
-      this.posts.forEach(function(postElement) {
-        var dataValue = postElement.dataset[self.dataTag] || '';
+      this.posts.forEach((postElement) => {
+        const dataValue = postElement.dataset[this.dataTag] || '';
         if (dataValue.toLowerCase().indexOf(tag) !== -1) {
           postElement.style.display = '';
         }
       });
-    },
+    }
 
     /**
      * Show all tags and all posts
      * @return {void}
      */
-    showAll: function() {
-      this.tags.forEach(function(el) {
+    showAll() {
+      this.tags.forEach((el) => {
         el.style.display = '';
       });
-      this.posts.forEach(function(el) {
+      this.posts.forEach((el) => {
         el.style.display = '';
       });
-    },
+    }
 
     /**
      * Hide all tags and all posts
      * @return {void}
      */
-    hideAll: function() {
-      this.tags.forEach(function(el) {
+    hideAll() {
+      this.tags.forEach((el) => {
         el.style.display = 'none';
       });
-      this.posts.forEach(function(el) {
+      this.posts.forEach((el) => {
         el.style.display = 'none';
       });
     }
-  };
+  }
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('tags-archives')) {
-      var tagsFilter = new TagsFilter('#tags-archives');
+      const tagsFilter = new TagsFilter('#tags-archives');
       tagsFilter.run();
     }
   });

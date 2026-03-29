@@ -34,8 +34,10 @@ The theme uses **Hugo Pipes** for all asset processing (SCSS compilation, JS con
 
 ### Linting
 
-- `npm install` - Install ESLint (only needed for linting)
-- `npm run lint` - Check JavaScript code style with ESLint
+- `npm install` - Install Biome (only needed for linting)
+- `npm run lint` - Check JavaScript code style and formatting with Biome
+- `npm run lint:fix` - Auto-fix lint and formatting issues
+- `npm run format` - Format JavaScript files
 
 ### Important Build Notes
 
@@ -129,8 +131,8 @@ Theme configuration is in the user's Hugo `config.toml`. See `exampleSite/config
 
 ## Code Style
 
-- JavaScript follows ESLint with Google code style configuration
-- ESLint config: `assets/js/.eslintrc.json` and root `.eslintrc`
+- JavaScript is linted and formatted with Biome
+- Biome config: `biome.json` in the project root
 - Always run `npm run lint` before committing JS changes
 
 ## Working with This Fork

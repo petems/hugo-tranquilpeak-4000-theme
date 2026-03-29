@@ -2,13 +2,13 @@
 
 A gorgeous responsive theme for Hugo blog framework
 
-[![Tranquilpeak](../showcase.png)](https://tranquilpeak.kakawait.com)
+[![Tranquilpeak](../showcase.png)](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite)
 
-Tranquilpeak theme is compatible with Hugo `v0.53`.
+Tranquilpeak theme 4000 is compatible with Hugo `v0.140+`.
 
-This documentation will help you to install hugo-tranquilpeak-theme and configure it to use all features which it provides.
+This documentation will help you to install hugo-tranquilpeak-theme-4000 and configure it to use all features which it provides.
 
-If you want to report a bug or ask a question, [create an issue](https://github.com/kakawait/hugo-tranquilpeak-theme/issues/new).
+If you want to report a bug or ask a question, [create an issue](https://github.com/petems/hugo-tranquilpeak-4000-theme/issues/new).
 
 ## Summary
 
@@ -62,7 +62,7 @@ If you want to report a bug or ask a question, [create an issue](https://github.
 
 - **Authors**: [Thibaud Leprêtre (kakawait)](https://github.com/kakawait) and [Louis Barranqueiro (LouisBarranqueiro)](https://github.com/LouisBarranqueiro)
 - **Version**: 0.5.3-BETA (based on Hexo version 3.1.0)
-- **Compatibility**: Hugo v0.53
+- **Compatibility**: Hugo v0.140+
 
 ## Features
 
@@ -100,8 +100,8 @@ If you want to report a bug or ask a question, [create an issue](https://github.
 
 ### Missing features from original *Hexo* version
 
-- [ ] Algolia (https://github.com/kakawait/hugo-tranquilpeak-theme/issues/8)
-- [ ] Pagination custumization `tagPagination`, `categoryPagination` and `archivePagination` (https://github.com/kakawait/hugo-tranquilpeak-theme/issues/17)
+- [ ] Algolia (https://github.com/petems/hugo-tranquilpeak-4000-theme/issues/8)
+- [ ] Pagination custumization `tagPagination`, `categoryPagination` and `archivePagination` (https://github.com/petems/hugo-tranquilpeak-4000-theme/issues/17)
 
 **ATTENTION** following features will not be possible due to *Hugo* limitations
 
@@ -110,17 +110,17 @@ If you want to report a bug or ask a question, [create an issue](https://github.
 
 ## Requirements
 
-1. **Hugo** : `v0.53`
+1. **Hugo** : `v0.140+`
 
 ## Installation
 
-1. Simply clone the repository `git clone https://github.com/kakawait/hugo-tranquilpeak-theme.git` on `themes` folder
-2. Rename the folder in `hugo-tranquilpeak-theme` (if necessary) and place it in `themes` folder of your Hugo blog
+1. Simply clone the repository `git clone https://github.com/petems/hugo-tranquilpeak-4000-theme.git` on `themes` folder
+2. Ensure the folder name is `hugo-tranquilpeak-theme-4000` and place it in your site's `themes` folder
 
 ```shell
 mkdir themes
 cd themes
-git clone https://github.com/kakawait/hugo-tranquilpeak-theme.git
+git clone https://github.com/petems/hugo-tranquilpeak-4000-theme.git
 ```
 
 ## Tranquilpeak configuration
@@ -165,7 +165,7 @@ You can translate menu entries by setting `identifier` that matches a translatio
 
 ### Setting up default theme to Tranquilpeak
 
-Modify the theme in `config.{toml,yml,json}` by changing `theme` variable to `tranquilpeak`
+Modify the theme in `config.{toml,yml,json}` by setting `theme = "hugo-tranquilpeak-theme-4000"`
 
 ### Define date format
 
@@ -307,7 +307,7 @@ E.g to display a shortcut to open algolia search window :
 #### Author
 
 ```toml
-[author]
+[params.author]
   name = "Thibaud Leprêtre"
   bio = "Super bio with markdown support **COOL**"
   job = "Java backend developer"
@@ -336,7 +336,7 @@ E.g to display a shortcut to open algolia search window :
 
 #### Customization
 
-**ATTENTION** not all customizations are documented here, you may checkout [sample config.toml](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/exampleSite/config.toml).
+**ATTENTION** not all customizations are documented here, you may checkout [sample config.toml](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/exampleSite/config.toml).
 
 ```toml
 [params]
@@ -411,14 +411,16 @@ For privacy settings please refer to https://gohugo.io/about/hugo-and-gdpr/
 ##### Disqus
 
 ```toml
-disqusShortname =
+[services]
+  [services.disqus]
+    shortname = "your-disqus-shortname"
 [params.comment.disqus]
   enable = true
 ```
 
 | Variable | Description |
 |----------|-------------|
-| disqusShortname | Your Disqus shortname |
+| services.disqus.shortname | Your Disqus shortname |
 | enable | Toggle disqus globally |
 
 ##### Gitalk
@@ -464,7 +466,7 @@ googleAnalytics =
 ##### Gravatar
 
 ```toml
-[author]
+[params.author]
   gravatarEmail =
 ```
 
@@ -565,7 +567,7 @@ You can configure how links to your site will appear in Twitter and/or Facebook.
 
 ### Prerequisites
 
-Since you are going to edit the theme, you have to install all the necessary to build it after changes : [Installation](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/developer.md#installation)
+Since you are going to edit the theme, you have to install all the necessary to build it after changes : [Installation](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/developer.md#installation)
 
 **Run command in theme folder : `hugo-blog/themes/tranquilpeak`**
 
@@ -582,7 +584,7 @@ Follow these steps :
 
 1. Get your theme here : [Highlight.js theme](https://github.com/isagalaev/highlight.js/tree/master/src/styles) or create yours
 2. Follow guidelines in `src/scss/themes/hljs-custom.scss` file
-3. Build the theme with `npm run prod`. Learn more about Grunt tasks : [Grunt tasks](https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/blob/master/docs/developer.md#grunt-tasks)
+3. Build the theme with `npm run build`. Learn more about the asset pipeline in [developer documentation](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/developer.md#asset-pipeline)
 
 ## Writing posts
 
@@ -634,9 +636,9 @@ summary: "This is a custom summary and does *not* appear in the post."
 |thumbnailImage|Image displayed in index view.|
 |thumbnailImagePosition|Display thumbnail image at the right of title in index pages (`right`, `left` or `bottom`). `thumbnailImagePosition` overwrite the setting `thumbnailImagePosition` in the theme configuration file|
 |metaAlignment|Meta (title, date and categories) alignment (right, left or center). Default behavior : left|
-|coverImage|Image displayed in full size at the top of your post in post view. If thumbnail image is not configured, cover image is also used as thumbnail image. Check the beautiful demo here : [Cover image demo](https://tranquilpeak.kakawait.com/2015/05/cover-image-showcase/)|
+|coverImage|Image displayed in full size at the top of your post in post view. If thumbnail image is not configured, cover image is also used as thumbnail image. Check the beautiful demo here : [Cover image demo](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite/2015/05/cover-image-showcase/)|
 |coverSize|`partial`: cover image take a part of the screen height (60%), `full`: cover image take the entire screen height.|
-|coverCaption|Add a caption under the cover image : [Cover caption demo](https://tranquilpeak.kakawait.com/2015/05/cover-image-showcase/)|
+|coverCaption|Add a caption under the cover image : [Cover caption demo](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite/2015/05/cover-image-showcase/)|
 |coverMeta|`in`: display post meta (title, date and categories) on cover image, `out`: display meta (title, date and categories) under cover image as usual. Default behavior : `in`|
 |gallery|Images displayed in an image gallery (with fancybox) at the end of the post. If thumbnail image is not configured and cover image too, the first photo is used as thumbnail image. format: `original url [thumbnail url] [caption]`, E.g : `https://example.com/original.jpg https://example.com/thumbnail.jpg "New York"`|
 |comments|`true`: Show the comment of the post.|
@@ -695,7 +697,7 @@ Tranquilpeak introduce new tags to display alert messages, images in full width 
 
 ![alert-tag](https://s3-ap-northeast-1.amazonaws.com/tranquilpeak-hexo-theme/docs/1.6/alert-tag.png)
 
-Alert tag is useful to highlight a content like a tips or a warning. Check it live here : [Alert tag demo](https://tranquilpeak.kakawait.com/2014/10/tags-plugins-showcase/#alert)
+Alert tag is useful to highlight a content like a tips or a warning. Check it live here : [Alert tag demo](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite/2014/10/tags-plugins-showcase/#alert)
 
 Syntax:
 ```
@@ -719,7 +721,7 @@ Here is a danger alert without icon
 
 ![highlight_text-tag](https://s3-ap-northeast-1.amazonaws.com/tranquilpeak-hexo-theme/docs/1.6/highlight_text-tag.png)
 
-Highlight text tag is useful to highlight an interesting part in a text. Check it live here : [Highlight text tag demo](https://tranquilpeak.kakawait.com/2014/10/tags-plugins-showcase/#highlight-text)
+Highlight text tag is useful to highlight an interesting part in a text. Check it live here : [Highlight text tag demo](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite/2014/10/tags-plugins-showcase/#highlight-text)
 
 Syntax:
 ```
@@ -744,7 +746,7 @@ your highlighted text
 
 #### Image
 
-Image tag is useful to add images and create beautiful galleries. Check what are the possibilities here : [Image tag demo](https://tranquilpeak.kakawait.com/2014/10/tags-plugins-showcase/#image)
+Image tag is useful to add images and create beautiful galleries. Check what are the possibilities here : [Image tag demo](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite/2014/10/tags-plugins-showcase/#image)
 
 Syntax:
 ```
@@ -772,7 +774,7 @@ Tabbed code blocks are useful to group multiple code blocks related. For example
 
 ![tabbed_codeblock-tag](https://s3-ap-northeast-1.amazonaws.com/tranquilpeak-hexo-theme/docs/1.7/tabbed_codeblock-tag.png)
 
-Check it live : [tabbed code block demo](https://tranquilpeak.kakawait.com/2014/10/tags-plugins-showcase/#tabbed-code-block)
+Check it live : [tabbed code block demo](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite/2014/10/tags-plugins-showcase/#tabbed-code-block)
 
 Syntax:
 ``` js
@@ -804,7 +806,7 @@ E.g:
 
 #### Wide image
 
-Wide image tag is useful to display wide images in full width. It take the entire window width. Check the the result : [Wide image tag demo](https://tranquilpeak.kakawait.com/2014/10/tags-plugins-showcase/#wide-image)
+Wide image tag is useful to display wide images in full width. It take the entire window width. Check the the result : [Wide image tag demo](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite/2014/10/tags-plugins-showcase/#wide-image)
 
 Syntax:
 ```

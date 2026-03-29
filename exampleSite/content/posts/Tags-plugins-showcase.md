@@ -8,14 +8,14 @@ thumbnailImagePosition: left
 thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/tag-plugins-showcase/car-6-140.jpg
 ---
 
-This post is used to show how tag plugins are displayed. See [docs](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/user.md#tags) for more info.
+This post is used to show how tag plugins are displayed. See [docs](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/user.md#tags) for more info.
 <!--more-->
 
 {{< toc >}}
 
 # Alert
 
-Read documentation to know how to use [Alert tag](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/user.md#alert)
+Read documentation to know how to use [Alert tag](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/user.md#alert)
 
 {{< alert info >}}
 Praesent diam elit, interdum ut pulvinar placerat, imperdiet at magna.
@@ -104,7 +104,7 @@ Read documentation to know how to use [Gist tag](https://hexo.io/docs/tag-plugin
 
 # Image
 
-Read documentation to know how to use [Image tag](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/user.md#image)
+Read documentation to know how to use [Image tag](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/user.md#image)
 
 <p></p>
 
@@ -167,13 +167,13 @@ dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac 
 
 # Highlight text
 
-Read documentation to know how to use [Highlight text tag](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/user.md#highlight-text)
+Read documentation to know how to use [Highlight text tag](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/user.md#highlight-text)
 
 <p>{{< hl-text red >}}highlight red{{< /hl-text >}} dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.{{< hl-text green >}}highlight green{{< /hl-text >}} dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.{{< hl-text blue >}}highlight blue{{< /hl-text >}} dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.{{< hl-text purple >}}highlight purple{{< /hl-text >}} dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.{{< hl-text orange >}}highlight orange{{< /hl-text >}} dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.{{< hl-text yellow >}}highlight yellow{{< /hl-text >}} dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.{{< hl-text cyan >}}highlight cyan{{< /hl-text >}} dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.{{< hl-text primary >}}highlight primary{{< /hl-text >}} dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.{{< hl-text success >}}highlight success{{< /hl-text >}} dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.{{< hl-text warning >}}highlight warning{{< /hl-text >}} dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.{{< hl-text danger >}}highlight danger{{< /hl-text >}} dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.</p>
 
 # Tabbed code block
 
-Read documentation to know how to use [Tabbed code block](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/user.md#tabbed-code-block)
+Read documentation to know how to use [Tabbed code block](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/user.md#tabbed-code-block)
 
 <p></p>
 
@@ -269,7 +269,7 @@ Read documentation to know how to use [Vimeo tag](https://hexo.io/docs/tag-plugi
 
 # Wide image
 
-Read documentation to know how to use [Wide image tag](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/user.md#wide-image)
+Read documentation to know how to use [Wide image tag](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/user.md#wide-image)
 
 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
 

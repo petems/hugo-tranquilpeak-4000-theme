@@ -1,17 +1,17 @@
-name = "Tranquilpeak"
+name = "Tranquilpeak-4000"
 license = "GNU General Public License v3.0"
-licenselink = "https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/LICENSE"
+licenselink = "https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/LICENSE"
 description = "A gorgeous responsive theme for Hugo blog framework"
-homepage = "https://github.com/kakawait/hugo-tranquilpeak-theme"
+homepage = "https://github.com/petems/hugo-tranquilpeak-4000-theme"
 tags = ["blog", "minimal", "responsive", "personal", "customizable", "creative", "fontawesome", "highlight.js"]
 features = ["blog", "themes", "disqus", "minimal", "responsive", "font awesome", "highlight.js"]
-min_version = 0.53
+min_version = "0.140.0"
 
 [author]
-  name = "Thibaud Leprêtre"
-  homepage = "https://github.com/kakawait"
+  name = "petems"
+  homepage = "https://github.com/petems"
 
 [original]
   name = "Tranquilpeak"
-  homepage = "https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak"
-  repo = "https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak.git"
+  homepage = "https://github.com/kakawait/hugo-tranquilpeak-theme"
+  repo = "https://github.com/kakawait/hugo-tranquilpeak-theme.git"

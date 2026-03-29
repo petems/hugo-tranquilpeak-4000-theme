@@ -17,6 +17,50 @@ cleanup() {
 
 trap cleanup EXIT
 
+normalize_url() {
+  local raw_url="${1:-}"
+  raw_url="${raw_url#"${raw_url%%[![:space:]]*}"}"
+  raw_url="${raw_url%"${raw_url##*[![:space:]]}"}"
+
+  if [[ -z "${raw_url}" ]]; then
+    return 1
+  fi
+
+  if [[ "${raw_url}" =~ ^https?:// ]]; then
+    printf '%s\n' "${raw_url%/}"
+  else
+    printf 'https://%s\n' "${raw_url%/}"
+  fi
+}
+
+resolve_base_url() {
+  # Highest priority: explicit PUBLIC_URL (can be host or full URL)
+  if [[ -n "${PUBLIC_URL:-}" ]]; then
+    normalize_url "${PUBLIC_URL}"
+    return
+  fi
+
+  # Production deployments should prefer the canonical production domain.
+  if [[ "${VERCEL_ENV:-}" == "production" && -n "${VERCEL_PROJECT_PRODUCTION_URL:-}" ]]; then
+    normalize_url "${VERCEL_PROJECT_PRODUCTION_URL}"
+    return
+  fi
+
+  # Preview deployments should use the unique deployment URL.
+  if [[ -n "${VERCEL_URL:-}" ]]; then
+    normalize_url "${VERCEL_URL}"
+    return
+  fi
+
+  # Fallback for branch deployments when available.
+  if [[ -n "${VERCEL_BRANCH_URL:-}" ]]; then
+    normalize_url "${VERCEL_BRANCH_URL}"
+    return
+  fi
+
+  return 1
+}
+
 ensure_hugo_version() {
   if ! command -v hugo >/dev/null 2>&1; then
     echo "hugo not found in PATH; downloading Hugo ${REQUIRED_HUGO_VERSION}..."
@@ -89,13 +133,9 @@ if grep -q 'theme = "hugo-tranquilpeak-theme"' "${SITE_DIR}/hugo.toml"; then
   sed -i "s/theme = \"hugo-tranquilpeak-theme\"/theme = \"${THEME_NAME}\"/" "${SITE_DIR}/hugo.toml"
 fi
 
-if [[ "${VERCEL_ENV:-}" == "preview" && -n "${VERCEL_URL:-}" ]]; then
-  BASE_URL="https://${VERCEL_URL}"
-  echo "Building preview deployment with baseURL: ${BASE_URL}"
-  "${HUGO_BIN}" --source "${SITE_DIR}" --destination "${OUTPUT_DIR_ABS}" --minify --baseURL "${BASE_URL}"
-elif [[ "${VERCEL_ENV:-}" == "production" && -n "${VERCEL_PROJECT_PRODUCTION_URL:-}" ]]; then
-  BASE_URL="https://${VERCEL_PROJECT_PRODUCTION_URL}"
-  echo "Building production deployment with baseURL: ${BASE_URL}"
+if BASE_URL="$(resolve_base_url)"; then
+  export PUBLIC_URL="${BASE_URL}"
+  echo "Building with resolved baseURL: ${BASE_URL}"
   "${HUGO_BIN}" --source "${SITE_DIR}" --destination "${OUTPUT_DIR_ABS}" --minify --baseURL "${BASE_URL}"
 else
   echo "Building with default baseURL from config"

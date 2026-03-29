@@ -6,7 +6,7 @@
  - **Browser with its version**:
  - **Hugo version**: <!-- You can get version by typing: hugo version -->
  - **Tranquilpeak version**: <!-- You can find version on package.json -->
- - **Do you reproduce on https://tranquilpeak.kakawait.com demo?**:
+ - **Do you reproduce with `hugo server --source exampleSite` from this repo?**:
  
 <!-- fill this part for bugs reporting if needed  -->
 ### Actual behavior

@@ -33,15 +33,15 @@ Tranquilpeak is a gorgeous responsive theme for Hugo blog framework. It has many
 
 A gorgeous responsive theme for Hugo blog framework
 
-[![Tranquilpeak](/img/showcase.png)](https://tranquilpeak.kakawait.com)
+[![Tranquilpeak](/img/showcase.png)](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite)
 
 ## Alpha/Beta versions
 
-**ATTENTION** during *alpha* or *beta* [versions](https://github.com/kakawait/hugo-tranquilpeak-theme/milestones) breaking changes are possible on config file.
+**ATTENTION** during *alpha* or *beta* [versions](https://github.com/petems/hugo-tranquilpeak-4000-theme/milestones) breaking changes are possible on config file.
 
-You can track [breaking changes label](https://github.com/kakawait/hugo-tranquilpeak-theme/issues?q=is%3Aissue+is%3Aopen+label%3A%22breaking+changes%22).
+You can track [breaking changes label](https://github.com/petems/hugo-tranquilpeak-4000-theme/issues?q=is%3Aissue+is%3Aopen+label%3A%22breaking+changes%22).
 
-How can I migrate my current version? Please read [CHANGELOG.md](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/CHANGELOG.md).
+How can I migrate my current version? Please read [CHANGELOG.md](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/CHANGELOG.md).
 
 ## Summary
 
@@ -97,8 +97,8 @@ How can I migrate my current version? Please read [CHANGELOG.md](https://github.
 ### Missing features from original *Hexo* version
 
 - [ ] Baidu analytics
-- [ ] Algolia (https://github.com/kakawait/hugo-tranquilpeak-theme/issues/8)
-- [ ] Pagination custumization `tagPagination`, `categoryPagination` and `archivePagination` (https://github.com/kakawait/hugo-tranquilpeak-theme/issues/17)
+- [ ] Algolia (https://github.com/petems/hugo-tranquilpeak-4000-theme/issues/8)
+- [ ] Pagination custumization `tagPagination`, `categoryPagination` and `archivePagination` (https://github.com/petems/hugo-tranquilpeak-4000-theme/issues/17)
 
 **ATTENTION** following features will not be possible due to *Hugo* limitations
 
@@ -107,7 +107,7 @@ How can I migrate my current version? Please read [CHANGELOG.md](https://github.
 
 ## Quick start
 
-**Please read [user documentation](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/user.md), it's short and useful to discover all features and possibilities of the theme, especially the  [writing posts](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/user.md#writing-posts) section**
+**Please read [user documentation](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/user.md), it's short and useful to discover all features and possibilities of the theme, especially the  [writing posts](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/user.md#writing-posts) section**
 
 ### For people who want to use the original version of Tranquilpeak without modifications (users)
 
@@ -116,31 +116,31 @@ Go to the directory where you have your Hugo site and run:
 ```shell
 mkdir themes
 cd themes
-git clone https://github.com/kakawait/hugo-tranquilpeak-theme.git
+git clone https://github.com/petems/hugo-tranquilpeak-4000-theme.git
 ```
 
 After installing the Tranquilpeak theme successfully, we recommend you to take a look at the [exampleSite](exampleSite) directory. You will find a working Hugo site configured with the Tranquilpeak theme that you can use as a starting point for your site.
 
 First, let's take a look at the [config.toml](exampleSite/config.tom). It will be useful to learn how to customize your site. Feel free to play around with the settings.
 
-More information on [user documentation](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/user.md) to install and configure the theme
+More information on [user documentation](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/user.md) to install and configure the theme
 
 ### For people who want to create their own version of tranquilpeak (developers)
 
-1. Run `git clone https://github.com/kakawait/hugo-tranquilpeak-theme.git`
-2. Follow [developer documentation](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/developer.md) to edit and build the theme
+1. Run `git clone https://github.com/petems/hugo-tranquilpeak-4000-theme.git`
+2. Follow [developer documentation](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/developer.md) to edit and build the theme
 
 ## Demo
 
-Check out Tranquilpeak theme in live : [hugo-tranquilpeak-theme demo](https://tranquilpeak.kakawait.com)
+Check out Tranquilpeak theme demo content: [hugo-tranquilpeak-theme-4000 exampleSite](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite)
 
 ## Showcase
 
-Checkout showcase https://github.com/kakawait/hugo-tranquilpeak-theme/wiki/Showcase
+Checkout showcase https://github.com/petems/hugo-tranquilpeak-4000-theme/wiki/Showcase
 
 ### How can I add my site to the showcase
 
-**Click [here](https://github.com/kakawait/hugo-tranquilpeak-theme/issues/new?title=Add%20my%20blog%20into%20the%20showcase&body=Hey,%20add%20my%20blog%20into%20the%20showcase:) to add your blog into the showcase.**
+**Click [here](https://github.com/petems/hugo-tranquilpeak-4000-theme/issues/new?title=Add%20my%20blog%20into%20the%20showcase&body=Hey,%20add%20my%20blog%20into%20the%20showcase:) to add your blog into the showcase.**
 
 Please fill the following information:
 
@@ -154,11 +154,11 @@ If it's your first time using Hugo, please check [Hugo official documentation](h
 
 ### For users
 
-To install and configure the theme, consult the following documentation : [user documentation](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/user.md)
+To install and configure the theme, consult the following documentation : [user documentation](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/user.md)
 
 ### For developers
 
-To understand the code, the workflow and edit the theme, consult the following documentation : [developer documentation](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/docs/developer.md)
+To understand the code, the workflow and edit the theme, consult the following documentation : [developer documentation](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/developer.md)
 
 ## Contributing
 
@@ -170,6 +170,4 @@ All kinds of contributions (enhancements, features, documentation & code improve
 
 ## License
 
-hugo-tranquilpeak-theme is released under the terms of the [GNU General Public License v3.0](https://github.com/kakawait/hugo-tranquilpeak-theme/blob/master/LICENSE).
-
-
+hugo-tranquilpeak-theme-4000 is released under the terms of the [GNU General Public License v3.0](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/LICENSE).

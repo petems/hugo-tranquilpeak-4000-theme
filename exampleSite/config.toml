@@ -1,6 +1,6 @@
 # Tranquilpeak
 # Version : 0.5.3-BETA
-# Author : Thibaud Leprêtre
+# Maintainer : hugo-tranquilpeak-theme-4000 community
 
 # I STRONGLY recommend you to use a CDN to speed up loading of pages.
 # There is many free CDN like Cloudinary or you can also use indirectly
@@ -15,11 +15,14 @@
 baseURL = "https://example.org/"
 languageCode = "en-us"
 defaultContentLanguage = "en-us"
-title = "Hugo tranquilpeak theme"
-theme = "hugo-tranquilpeak-theme"
-disqusShortname = "hugo-tranquilpeak-theme"
+title = "Hugo tranquilpeak theme 4000"
+theme = "hugo-tranquilpeak-theme-4000"
 # googleAnalytics = "UA-123-45"
 canonifyurls = true
+
+[services]
+  [services.disqus]
+    shortname = "hugo-tranquilpeak-theme-4000"
 
 [pagination]
   pagerSize = 7
@@ -45,7 +48,7 @@ canonifyurls = true
 # ------
 # Author
 # ------
-[author]
+[params.author]
   name = "Firstname Lastname"
   bio = "Super bio with markdown support **COOL**"
   job = "Your job title"
@@ -335,7 +338,7 @@ canonifyurls = true
   # -------------------
   # Gravatar
   #  >> See Author section
-  #    [author]
+  #    [params.author]
   #      gravatarEmail =
   # Google Analytics
   #  >> See googleAnalytics
@@ -351,7 +354,6 @@ canonifyurls = true
   [params.comment]
     [params.comment.disqus]
       enable = true
-      shortname = "hugo-tranquilpeak-theme"
     [params.comment.gitalk]
       enable = false
       # clientId =

@@ -1,5 +1,6 @@
 {{ if .IsPage }}
-  {{ if and (.Site.Params.comment.disqus.enable) (not (.Site.Config.Privacy.Disqus.Disable)) }}
+  {{ $disqusShortname := .Site.Config.Services.Disqus.Shortname }}
+  {{ if and (and (.Site.Params.comment.disqus.enable) (not (.Site.Config.Privacy.Disqus.Disable))) $disqusShortname }}
     <div id="disqus_thread">
       <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
     </div>
@@ -20,7 +21,7 @@
           return;
         }
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        var disqus_shortname = '{{ .Site.DisqusShortname }}';
+        var disqus_shortname = '{{ $disqusShortname }}';
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
       })();

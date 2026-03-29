@@ -1,8 +1,9 @@
 {
     "globals": {
-        "jQuery": false,
+        "GLightbox": false,
         "moment": false,
-        "algoliaIndex": false
+        "algoliaIndex": false,
+        "smartresize": false
     },
     "env": {
         "browser": true

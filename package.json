@@ -2,14 +2,8 @@
     "name": "hugo-tranquilpeak-theme-4000",
     "version": "4000.0.0",
     "description": "A gorgeous responsive theme for Hugo blog framework",
-    "main": "scripts/build-assets.js",
     "scripts": {
-        "start": "npm run dev",
-        "dev": "chokidar \"src/js/**/*.js\" \"src/scss/**/*.scss\" -c \"npm run build:assets\"",
-        "build": "npm run build:assets",
-        "build:assets": "node scripts/build-assets.js",
-        "prod": "npm run build:assets",
-        "lint": "eslint .",
+        "lint": "eslint assets/js/",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -30,14 +24,10 @@
     },
     "homepage": "https://github.com/petems/hugo-tranquilpeak-4000-theme",
     "devDependencies": {
-        "chokidar-cli": "^3.0.0",
-        "esbuild": "^0.25.10",
         "eslint": "^7.32.0",
-        "eslint-config-google": "^0.14.0",
-        "nanoid": "^3.1.23",
-        "sass": "^1.37.5"
+        "eslint-config-google": "^0.14.0"
     },
     "engines": {
-        "node": ">=20.0.0"
+        "node": ">=18.0.0"
     }
 }

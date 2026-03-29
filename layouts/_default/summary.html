@@ -35,7 +35,7 @@
         <a href="{{ .Permalink }}" aria-label="{{ if i18n "global.open_post" }}{{ i18n "global.open_post" }}: {{ .Title }}{{ end }}">
       {{ end }}
         <div class="postShorten-thumbnailimg">
-          <img alt="" src="{{ .Scratch.Get "thumbnailImage" }}"/>
+          <img alt="" src="{{ .Scratch.Get "thumbnailImage" }}" loading="lazy" decoding="async"/>
         </div>
       </a>
     {{ end }}

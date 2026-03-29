@@ -19,27 +19,16 @@ jobs:
                     - "0.155.3"
                     - "0.150.0"
                     - "0.140.0"
+                    # Baseline compatibility floor for Dart Sass in Hugo Pipes
+                    - "0.128.0"
+                    - "0.120.0"
+                    - "0.114.0"
 
         steps:
             - name: Checkout theme
               uses: actions/checkout@v6
               with:
                   path: theme
-
-            - name: Setup Node.js
-              uses: actions/setup-node@v6
-              with:
-                  node-version: "20"
-                  cache: "npm"
-                  cache-dependency-path: theme/package-lock.json
-
-            - name: Install npm dependencies
-              working-directory: theme
-              run: npm ci
-
-            - name: Build theme assets
-              working-directory: theme
-              run: npm run prod
 
             - name: Setup Hugo ${{ matrix.hugo-version }}
               uses: peaceiris/actions-hugo@v3

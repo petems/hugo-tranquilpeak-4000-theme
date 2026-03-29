@@ -53,7 +53,7 @@
       }
       // Fade in the about overlay
       if (self.about) {
-        self.about.style.display = '';
+        self.about.style.display = 'block';
         self.about.style.transition = 'opacity 0.3s ease';
         self.about.style.opacity = '0';
         // Force reflow
@@ -72,7 +72,7 @@
       setTimeout(function() {
         // Fade in blog
         if (self.blog) {
-          self.blog.style.display = '';
+          self.blog.style.display = 'block';
           self.blog.style.opacity = '0';
           // Force reflow
           self.blog.offsetHeight;
@@ -101,7 +101,7 @@
 
       self.aboutCard.style.transition = 'none';
       self.aboutCard.style.top = '-' + aboutCardHeight + 'px';
-      self.aboutCard.style.display = '';
+      self.aboutCard.style.display = 'block';
       // Force reflow
       self.aboutCard.offsetHeight;
       self.aboutCard.style.transition = 'top 0.5s ease';

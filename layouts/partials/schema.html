@@ -1,57 +1,64 @@
 {{- $author := (.Site.Params.author | default .Site.Params.Author) -}}
+{{- $keywords := slice -}}
+{{- with .Keywords -}}
+  {{- $keywords = $keywords | append . -}}
+{{- end -}}
+{{- with .Site.Params.keywords -}}
+  {{- $keywords = $keywords | append . -}}
+{{- end -}}
 <script type="application/ld+json">
 {{ if eq .Section "posts" }}
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": {{ .Title }},
+  "headline": {{ .Title | jsonify }},
   {{ if .Params.coverimage }}
-  "image": {{ .Params.coverImage | absURL }},
+  "image": {{ .Params.coverImage | absURL | jsonify }},
   {{ else if .Params.thumbnailImage }}
-  "image": {{ .Params.thumbnailImage | absURL }},
+  "image": {{ .Params.thumbnailImage | absURL | jsonify }},
   {{ end }}
-  "datePublished": {{ .PublishDate }},
-  "dateModified": {{ .Lastmod }},
+  "datePublished": {{ .PublishDate | jsonify }},
+  "dateModified": {{ .Lastmod | jsonify }},
   "author": {
     "@type": "Person",
-    "name": {{ $author.name }},
+    "name": {{ $author.name | jsonify }},
     {{ with ($.Scratch.Get "authorPicture") }}
-    "image": {{ . }}
+    "image": {{ . | jsonify }}
     {{ end }}
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "{{ .Permalink }}"
+    "@id": {{ .Permalink | jsonify }}
   },
   "publisher": {
     "@type": "Organization",
-    "name": {{ .Site.Title }},
+    "name": {{ .Site.Title | jsonify }},
     {{ with ($.Scratch.Get "authorPicture") }}
     "logo": {
       "@type": "ImageObject",
-      "url": {{ . }}
+      "url": {{ . | jsonify }}
     }
     {{ end }}
   },
-  "description": {{ .Summary | plainify | safeHTML }},
-  "keywords": [{{ with .Keywords }}{{ delimit . ", " }}{{ end }}{{ if .Site.Params.keywords }}, {{ delimit .Site.Params.keywords ", " }}{{ end }}]
+  "description": {{ .Summary | plainify | jsonify }},
+  "keywords": {{ $keywords | jsonify }}
 }
 {{ else }}
 {
   "@context":"http://schema.org",
   "@type":"Website",
-  "@id":"{{ .Site.BaseURL }}",
+  "@id": {{ .Site.BaseURL | jsonify }},
   "author": {
     "@type": "Person",
-    "name": {{ $author.name }},
+    "name": {{ $author.name | jsonify }},
     {{ with ($.Scratch.Get "authorPicture") }}
-    "image": {{ . }}
+    "image": {{ . | jsonify }}
     {{ end }}
   },
-  "name":"{{ .Site.Title }}",
-  "description":"{{ if .Description }}{{ .Description }}{{ else if .IsPage }}{{ .Summary }}{{ else }}{{ .Site.Params.description }}{{ end }}",
-  "url":"{{ .Permalink }}",
-  "keywords":"[{{ with .Keywords }}{{ delimit . ", " }}{{ end }}{{ if .Site.Params.keywords }}, {{ delimit .Site.Params.keywords ", " }}{{ end }}]"
+  "name": {{ .Site.Title | jsonify }},
+  "description": {{ (cond .Description .Description (cond .IsPage .Summary .Site.Params.description)) | plainify | jsonify }},
+  "url": {{ .Permalink | jsonify }},
+  "keywords": {{ $keywords | jsonify }}
 }
 {{ end }}
 </script>

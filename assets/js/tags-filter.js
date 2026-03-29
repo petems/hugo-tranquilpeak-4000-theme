@@ -99,8 +99,17 @@
      * @returns {Number}
      */
     countTags: function(tag) {
-      var selector = this.containerSelector + ' .archive[data-' + this.dataTag + '*=\'' + tag + '\']';
-      return document.querySelectorAll(selector).length;
+      var self = this;
+      var count = 0;
+
+      this.posts.forEach(function(post) {
+        var dataValue = post.dataset[self.dataTag] || '';
+        if (dataValue.toLowerCase().indexOf(tag) !== -1) {
+          count++;
+        }
+      });
+
+      return count;
     },
 
     /**
@@ -109,13 +118,20 @@
      * @return {void}
      */
     showPosts: function(tag) {
-      var sel = this.containerSelector;
-      var dataTag = this.dataTag;
-      document.querySelectorAll(sel + ' .tag[data-' + dataTag + '*=\'' + tag + '\']').forEach(function(el) {
-        el.style.display = '';
+      var self = this;
+
+      this.tags.forEach(function(tagElement) {
+        var dataValue = tagElement.dataset[self.dataTag] || '';
+        if (dataValue.toLowerCase().indexOf(tag) !== -1) {
+          tagElement.style.display = '';
+        }
       });
-      document.querySelectorAll(sel + ' .archive[data-' + dataTag + '*=\'' + tag + '\']').forEach(function(el) {
-        el.style.display = '';
+
+      this.posts.forEach(function(postElement) {
+        var dataValue = postElement.dataset[self.dataTag] || '';
+        if (dataValue.toLowerCase().indexOf(tag) !== -1) {
+          postElement.style.display = '';
+        }
       });
     },
 
@@ -124,8 +140,12 @@
      * @return {void}
      */
     showAll: function() {
-      this.tags.forEach(function(el) { el.style.display = ''; });
-      this.posts.forEach(function(el) { el.style.display = ''; });
+      this.tags.forEach(function(el) {
+        el.style.display = '';
+      });
+      this.posts.forEach(function(el) {
+        el.style.display = '';
+      });
     },
 
     /**
@@ -133,8 +153,12 @@
      * @return {void}
      */
     hideAll: function() {
-      this.tags.forEach(function(el) { el.style.display = 'none'; });
-      this.posts.forEach(function(el) { el.style.display = 'none'; });
+      this.tags.forEach(function(el) {
+        el.style.display = 'none';
+      });
+      this.posts.forEach(function(el) {
+        el.style.display = 'none';
+      });
     }
   };
 

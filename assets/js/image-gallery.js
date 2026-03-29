@@ -38,6 +38,7 @@
           imageRatio = imageHeight / imageWidth;
           image.style.width = photoBoxWidth + 'px';
           image.style.height = (photoBoxWidth * imageRatio) + 'px';
+          imageHeight = image.offsetHeight;
           image.parentElement.style.top = '-' + ((imageHeight / 2) - (photoBoxHeight / 2)) + 'px';
         }
 

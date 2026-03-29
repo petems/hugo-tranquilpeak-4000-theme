@@ -31,6 +31,10 @@
     },
 
     swipePostBottomBar: function() {
+      if (!this.postBottomBar || !this.postFooter || !this.header) {
+        return;
+      }
+
       var scrollTop = window.scrollY;
       var postFooterRect = this.postFooter.getBoundingClientRect();
       var postFooterOffsetTop = postFooterRect.top + scrollTop;
@@ -55,7 +59,9 @@
   };
 
   document.addEventListener('DOMContentLoaded', function() {
-    if (document.querySelector('.post-bottom-bar')) {
+    if (document.querySelector('.post-bottom-bar') &&
+      document.querySelector('.post-actions-wrap') &&
+      document.getElementById('header')) {
       var postBottomBar = new PostBottomBar();
       postBottomBar.run();
     }

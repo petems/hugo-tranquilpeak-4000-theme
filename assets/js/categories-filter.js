@@ -58,6 +58,15 @@
     },
 
     /**
+     * Escape a string for use inside a CSS attribute selector.
+     * @param {String} value - Selector value to escape.
+     * @returns {String} Escaped selector value.
+     */
+    escapeCssValue: function(value) {
+      return value.replace(/([\\'"\[\]])/g, '\\$1');
+    },
+
+    /**
      * Show related posts form a category and hide the others
      * @param {string} category - The name of the category
      * @return {void}
@@ -104,7 +113,7 @@
      * @returns {Number} The number of categories found
      */
     countCategories: function(category) {
-      var selector = this.containerSelector + ' .archive[data-' + this.dataCategory + '*=\'' + category + '\']';
+      var selector = this.containerSelector + ' .archive[data-' + this.dataCategory + '*=\'' + this.escapeCssValue(category) + '\']';
       return document.querySelectorAll(selector).length;
     },
 
@@ -118,8 +127,9 @@
       var sel = self.containerSelector;
       var catAttr = self.dataCategory;
       var parentAttr = self.dataParentCategories;
-      var categories = sel + ' .category-anchor[data-' + catAttr + '*=\'' + category + '\']';
-      var posts = sel + ' .archive[data-' + catAttr + '*=\'' + category + '\']';
+      var safeCategory = self.escapeCssValue(category);
+      var categories = sel + ' .category-anchor[data-' + catAttr + '*=\'' + safeCategory + '\']';
+      var posts = sel + ' .archive[data-' + catAttr + '*=\'' + safeCategory + '\']';
 
       if (self.countCategories(category) > 0) {
         // Check if selected categories have parents
@@ -132,7 +142,7 @@
             if (parents) {
               // Show only the title of the parents's categories and hide their posts
               parents.split(',').forEach(function(parent) {
-                var dataAttr = '[data-' + catAttr + '=\'' + parent + '\']';
+                var dataAttr = '[data-' + catAttr + '=\'' + self.escapeCssValue(parent) + '\']';
                 document.querySelectorAll(sel + ' .category-anchor' + dataAttr).forEach(function(e) {
                   e.style.display = '';
                 });
@@ -148,9 +158,15 @@
         }
       }
       // Show categories and related posts found
-      document.querySelectorAll(categories).forEach(function(el) { el.style.display = ''; });
-      document.querySelectorAll(posts).forEach(function(el) { el.style.display = ''; });
-      document.querySelectorAll(posts + ' > .archive-posts > .archive-post').forEach(function(el) { el.style.display = ''; });
+      document.querySelectorAll(categories).forEach(function(el) {
+        el.style.display = '';
+      });
+      document.querySelectorAll(posts).forEach(function(el) {
+        el.style.display = '';
+      });
+      document.querySelectorAll(posts + ' > .archive-posts > .archive-post').forEach(function(el) {
+        el.style.display = '';
+      });
     },
 
     /**
@@ -159,9 +175,15 @@
      */
     showAll: function() {
       var sel = this.containerSelector;
-      this.categoryElements.forEach(function(el) { el.style.display = ''; });
-      this.postElements.forEach(function(el) { el.style.display = ''; });
-      document.querySelectorAll(sel + ' .archive > .archive-posts > .archive-post').forEach(function(el) { el.style.display = ''; });
+      this.categoryElements.forEach(function(el) {
+        el.style.display = '';
+      });
+      this.postElements.forEach(function(el) {
+        el.style.display = '';
+      });
+      document.querySelectorAll(sel + ' .archive > .archive-posts > .archive-post').forEach(function(el) {
+        el.style.display = '';
+      });
     },
 
     /**
@@ -169,8 +191,12 @@
      * @return {void}
      */
     hideAll: function() {
-      this.categoryElements.forEach(function(el) { el.style.display = 'none'; });
-      this.postElements.forEach(function(el) { el.style.display = 'none'; });
+      this.categoryElements.forEach(function(el) {
+        el.style.display = 'none';
+      });
+      this.postElements.forEach(function(el) {
+        el.style.display = 'none';
+      });
     }
   };
 

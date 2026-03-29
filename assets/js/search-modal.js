@@ -68,6 +68,10 @@
     },
 
     open: function() {
+      if (this.isVisible(this.searchModal)) {
+        return;
+      }
+
       this.showSearchModal();
       this.showOverlay();
       if (this.searchInput) this.searchInput.focus();
@@ -92,28 +96,69 @@
 
     showResults: function(posts) {
       var html = '';
+
+      /**
+       * Escape text content before building HTML strings.
+       * @param {String} value - Untrusted text value.
+       * @returns {String} Escaped HTML.
+       */
+      function escapeHtml(value) {
+        return String(value || '').replace(/[&<>"']/g, function(character) {
+          return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            '\'': '&#39;'
+          }[character];
+        });
+      }
+
+      /**
+       * Block dangerous URLs before injecting attributes.
+       * @param {String} value - Candidate URL from Algolia.
+       * @returns {String} Safe URL or '#'.
+       */
+      function sanitizeUrl(value) {
+        var url = String(value || '');
+
+        if (!url) {
+          return '#';
+        }
+
+        if (/^\s*(javascript|data):/i.test(url)) {
+          return '#';
+        }
+
+        return escapeHtml(url);
+      }
+
       posts.forEach(function(post) {
         var lang = window.navigator.userLanguage || window.navigator.language || post.lang;
+        var permalink = sanitizeUrl(post.link || post.permalink);
+        var thumbnailUrl = sanitizeUrl(post.thumbnailImageUrl);
+        var title = escapeHtml(post.title);
+        var excerpt = escapeHtml(post.excerpt);
 
         html += '<div class="media">';
-        if (post.thumbnailImageUrl) {
+        if (thumbnailUrl !== '#') {
           html += '<div class="media-left">';
-          html += '<a class="link-unstyled" href="' + (post.link || post.permalink) + '">';
-          html += '<img class="media-image" src="' + post.thumbnailImageUrl + '" width="90" height="90"/>';
+          html += '<a class="link-unstyled" href="' + permalink + '">';
+          html += '<img class="media-image" src="' + thumbnailUrl + '" width="90" height="90"/>';
           html += '</a>';
           html += '</div>';
         }
 
         html += '<div class="media-body">';
-        html += '<a class="link-unstyled" href="' + (post.link || post.permalink) + '">';
-        html += '<h3 class="media-heading">' + post.title + '</h3>';
+        html += '<a class="link-unstyled" href="' + permalink + '">';
+        html += '<h3 class="media-heading">' + title + '</h3>';
         html += '</a>';
         html += '<span class="media-meta">';
         html += '<span class="media-date text-small">';
         html += moment(post.date).locale(lang).format('ll');
         html += '</span>';
         html += '</span>';
-        html += '<div class="media-content hide-xs font-merryweather">' + post.excerpt + '</div>';
+        html += '<div class="media-content hide-xs font-merryweather">' + excerpt + '</div>';
         html += '</div>';
         html += '<div style="clear:both;"></div>';
         html += '<hr>';
@@ -146,10 +191,12 @@
       if (count < 1) {
         string = this.resultsCount.dataset.messageZero;
         if (this.noResults) this.noResults.style.display = '';
-      } else if (count === 1) {
+      }
+      else if (count === 1) {
         string = this.resultsCount.dataset.messageOne;
         if (this.noResults) this.noResults.style.display = 'none';
-      } else if (count > 1) {
+      }
+      else if (count > 1) {
         string = this.resultsCount.dataset.messageOther.replace(/\{n\}/, count);
         if (this.noResults) this.noResults.style.display = 'none';
       }
@@ -157,6 +204,11 @@
     },
 
     showOverlay: function() {
+      if (document.querySelector('.overlay')) {
+        document.body.style.overflow = 'hidden';
+        return;
+      }
+
       var overlay = document.createElement('div');
       overlay.className = 'overlay';
       document.body.appendChild(overlay);
@@ -167,16 +219,18 @@
     },
 
     hideOverlay: function() {
-      var overlay = document.querySelector('.overlay');
-      if (overlay) {
+      var overlays = document.querySelectorAll('.overlay');
+
+      overlays.forEach(function(overlay) {
         overlay.style.opacity = '0';
         setTimeout(function() {
           if (overlay.parentNode) {
             overlay.parentNode.removeChild(overlay);
           }
-          document.body.style.overflow = 'auto';
         }, 300);
-      }
+      });
+
+      document.body.style.overflow = 'auto';
     }
   };
 

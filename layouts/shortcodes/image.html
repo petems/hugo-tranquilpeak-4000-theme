@@ -27,7 +27,7 @@
 {{- end -}}
 <div class="figure {{ delimit ($.Scratch.Get "i-classes") " " }}" {{ with (.Get "thumbnailWidth") }}style="width:{{ . }};"{{ end }}>
   {{ if eq ($.Scratch.Get "i-fancybox") 1 }}
-    <a class="fancybox" href="{{ $src }}"{{ with (.Get "title") }} title="{{ . }}"{{ end }} data-fancybox="{{ with (.Get "group") }}{{ . }}{{ end }}">
+    <a class="fancybox" href="{{ if $pageResource }}{{ $pageResource.RelPermalink }}{{ else }}{{ $src }}{{ end }}"{{ with (.Get "title") }} title="{{ . }}"{{ end }} data-fancybox="{{ with (.Get "group") }}{{ . }}{{ end }}">
   {{ end }}
   {{- if $pageResource -}}
     {{- $thumbSrc := $pageResource -}}

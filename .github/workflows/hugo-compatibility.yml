@@ -1,135 +1,128 @@
 name: Hugo Compatibility Test
 
 on:
-  push:
-    branches: [ master, main, develop ]
-  pull_request:
-    branches: [ master, main, develop ]
-  workflow_dispatch:
+    push:
+        branches: [master, main, develop]
+    pull_request:
+        branches: [master, main, develop]
+    workflow_dispatch:
 
 jobs:
-  test:
-    name: Test Hugo ${{ matrix.hugo-version }}
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        hugo-version:
-          # Modern versions (tested and working)
-          - '0.152.2'
-          - '0.140.0'
-          - '0.135.0'
-          # Version where pagination changed
-          - '0.128.0'
-          # Intermediate versions  (tested and working)
-          - '0.120.0'
-          - '0.110.0'
-          # Note: Hugo 0.80-0.100 fail due to shortcode resolution differences
-          # All versions 0.110+ work correctly
+    test:
+        name: Test Hugo ${{ matrix.hugo-version }}
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                hugo-version:
+                    # Maintained support window
+                    - "0.155.3"
+                    - "0.150.0"
+                    - "0.140.0"
 
-    steps:
-      - name: Checkout theme
-        uses: actions/checkout@v4
-        with:
-          path: theme
+        steps:
+            - name: Checkout theme
+              uses: actions/checkout@v4
+              with:
+                  path: theme
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-          cache-dependency-path: theme/package-lock.json
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+                  cache: "npm"
+                  cache-dependency-path: theme/package-lock.json
 
-      - name: Install npm dependencies
-        working-directory: theme
-        run: npm ci
+            - name: Install npm dependencies
+              working-directory: theme
+              run: npm ci
 
-      - name: Build theme assets
-        working-directory: theme
-        run: npm run prod
+            - name: Build theme assets
+              working-directory: theme
+              run: npm run prod
 
-      - name: Setup Hugo ${{ matrix.hugo-version }}
-        uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: ${{ matrix.hugo-version }}
-          extended: true
+            - name: Setup Hugo ${{ matrix.hugo-version }}
+              uses: peaceiris/actions-hugo@v3
+              with:
+                  hugo-version: ${{ matrix.hugo-version }}
+                  extended: true
 
-      - name: Verify Hugo installation
-        run: hugo version
+            - name: Verify Hugo installation
+              run: hugo version
 
-      - name: Create test Hugo site
-        run: |
-          hugo new site test-site
-          cd test-site
-          mkdir -p themes
-          ln -s ../../theme themes/hugo-tranquilpeak-theme-4000
+            - name: Create test Hugo site
+              run: |
+                  hugo new site test-site
+                  cd test-site
+                  mkdir -p themes
+                  ln -s ../../theme themes/hugo-tranquilpeak-theme-4000
 
-      - name: Copy example content
-        run: |
-          cp -r theme/exampleSite/content/* test-site/content/
-          cp -r theme/exampleSite/static/* test-site/static/
+            - name: Copy example content
+              run: |
+                  cp -r theme/exampleSite/content/* test-site/content/
+                  cp -r theme/exampleSite/static/* test-site/static/
 
-      - name: Configure site for Hugo version
-        run: |
-          cd test-site
-          cat > hugo.toml <<EOF
-          baseURL = "https://example.org/"
-          languageCode = "en-us"
-          defaultContentLanguage = "en-us"
-          title = "Hugo tranquilpeak theme - CI Test"
-          theme = "hugo-tranquilpeak-theme-4000"
-          canonifyurls = true
+            - name: Configure site for Hugo version
+              run: |
+                  cd test-site
+                  cat > hugo.toml <<EOF
+                  baseURL = "https://example.org/"
+                  languageCode = "en-us"
+                  defaultContentLanguage = "en-us"
+                  title = "Hugo tranquilpeak theme - CI Test"
+                  theme = "hugo-tranquilpeak-theme-4000"
+                  canonifyurls = true
 
-          [pagination]
-            pagerSize = 7
+                  [pagination]
+                    pagerSize = 7
 
-          [permalinks]
-            posts = "/:year/:month/:slug/"
+                  [permalinks]
+                    posts = "/:year/:month/:slug/"
 
-          [taxonomies]
-            tag = "tags"
-            category = "categories"
-            archive = "archives"
-          EOF
+                  [taxonomies]
+                    tag = "tags"
+                    category = "categories"
+                    archive = "archives"
+                  EOF
 
-      - name: Build Hugo site
-        working-directory: test-site
-        run: |
-          hugo --minify
+            - name: Build Hugo site
+              working-directory: test-site
+              run: |
+                  hugo --minify
 
-      - name: Check build output
-        run: |
-          if [ ! -d "test-site/public" ]; then
-            echo "ERROR: Hugo did not create public directory"
-            exit 1
-          fi
+            - name: Check build output
+              run: |
+                  if [ ! -d "test-site/public" ]; then
+                    echo "ERROR: Hugo did not create public directory"
+                    exit 1
+                  fi
 
-          if [ ! -f "test-site/public/index.html" ]; then
-            echo "ERROR: Hugo did not create index.html"
-            exit 1
-          fi
+                  if [ ! -f "test-site/public/index.html" ]; then
+                    echo "ERROR: Hugo did not create index.html"
+                    exit 1
+                  fi
 
-          echo "✅ Build successful!"
-          echo "Pages built: $(find test-site/public -name '*.html' | wc -l)"
+                  echo "✅ Build successful!"
+                  echo "Pages built: $(find test-site/public -name '*.html' | wc -l)"
 
-      - name: Upload build artifacts (on failure)
-        if: failure()
-        uses: actions/upload-artifact@v7
-        with:
-          name: hugo-${{ matrix.hugo-version }}-failure-logs
-          path: |
-            test-site/
-            !test-site/themes/
-          retention-days: 7
+            - name: Upload build artifacts (on failure)
+              if: failure()
+              uses: actions/upload-artifact@v7
+              with:
+                  name: hugo-${{ matrix.hugo-version }}-failure-logs
+                  path: |
+                      test-site/
+                      !test-site/themes/
+                  retention-days: 7
 
-  compatibility-summary:
-    name: Compatibility Summary
-    runs-on: ubuntu-latest
-    needs: test
-    if: always()
-    steps:
-      - name: Check test results
-        run: |
-          echo "# Hugo Compatibility Test Results" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Test matrix completed. Check individual job results above." >> $GITHUB_STEP_SUMMARY
+    compatibility-summary:
+        name: Compatibility Summary
+        runs-on: ubuntu-latest
+        needs: test
+        if: always()
+        steps:
+            - name: Check test results
+              run: |
+                  echo "# Hugo Compatibility Test Results" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "Test matrix completed. Check individual job results above." >> $GITHUB_STEP_SUMMARY

@@ -13,7 +13,7 @@ Here you can find a list of the blogs that use Tranquilpeak theme, with differen
 
 <!--more-->
 
-If you want to add your site to this showcase, click [here](https://github.com/kakawait/hugo-tranquilpeak-theme/issues/new?title=Add%20my%20blog%20into%20the%20showcase&body=Hey,%20add%20my%20blog%20into%20the%20showcase:) and fill the following information:
+If you want to add your site to this showcase, click [here](https://github.com/petems/hugo-tranquilpeak-4000-theme/issues/new?title=Add%20my%20blog%20into%20the%20showcase&body=Hey,%20add%20my%20blog%20into%20the%20showcase:) and fill the following information:
 
 - public url
 - name (optional)

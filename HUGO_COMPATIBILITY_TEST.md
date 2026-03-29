@@ -142,18 +142,12 @@ Build time:       96 ms (initial), 23 ms (subsequent)
 The repository now includes GitHub Actions workflow (`.github/workflows/hugo-compatibility.yml`) that automatically tests the theme against multiple Hugo versions:
 
 **Test Matrix:**
-- Hugo 0.152.2 (latest tested)
+- Hugo 0.155.3 (latest tested)
+- Hugo 0.150.0
 - Hugo 0.140.0
-- Hugo 0.135.0
-- Hugo 0.128.0 (pagination change version)
-- Hugo 0.120.0
-- Hugo 0.110.0
-- Hugo 0.100.0
-- Hugo 0.90.0
-- Hugo 0.80.0
 
 **CI Process:**
-1. Builds theme assets with Grunt
+1. Builds theme assets with `npm run build`
 2. Installs specific Hugo version
 3. Creates test site with example content
 4. Builds site with modern configuration
@@ -161,7 +155,7 @@ The repository now includes GitHub Actions workflow (`.github/workflows/hugo-com
 
 **Monitoring:**
 - Check the badge in README.md for current CI status
-- View detailed results: https://github.com/petems/hugo-tranquilpeak-theme-4000/actions
+- View detailed results: https://github.com/petems/hugo-tranquilpeak-4000-theme/actions
 
 ## Conclusion
 

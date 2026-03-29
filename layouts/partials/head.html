@@ -1,4 +1,5 @@
 {{- $.Scratch.Set "isTypeInMainSections" false -}}
+{{- $author := (.Site.Params.author | default .Site.Params.Author) -}}
 {{- if .IsPage -}}
   {{- if in site.Params.mainSections .Type -}}
     {{- $.Scratch.Set "isTypeInMainSections" true -}}
@@ -9,13 +10,17 @@
 {{- else -}}
   {{- .Scratch.Set "sidebarBehavior" .Site.Params.sidebarBehavior -}}
 {{- end -}}
-{{- if .Site.Params.author.gravatarEmail -}}
-  {{- .Scratch.Set "gravatarEmail" .Site.Params.author.gravatarEmail -}}
+<!-- Keep compatibility with older gravatarEmail field casing. -->
+{{- if $author.gravatarEmail -}}
+  {{- .Scratch.Set "gravatarEmail" $author.gravatarEmail -}}
+{{- end -}}
+{{- if $author.gravataremail -}}
+  {{- .Scratch.Set "gravatarEmail" $author.gravataremail -}}
 {{- end -}}
 {{- if .Scratch.Get "gravatarEmail" -}}
   {{- .Scratch.Set "authorPicture" (printf "https://www.gravatar.com/avatar/%s" (urlize (md5 (.Scratch.Get "gravatarEmail")))) -}}
-{{- else if .Site.Params.author.picture -}}
-  {{- .Scratch.Set "authorPicture" (absURL .Site.Params.author.picture) -}}
+{{- else if $author.picture -}}
+  {{- .Scratch.Set "authorPicture" (absURL $author.picture) -}}
 {{- end -}}
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
@@ -30,7 +35,7 @@
       <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ .RelPermalink }}">
     {{ end }}
 
-    {{ with .Site.Params.author.googleplus }}
+    {{ with $author.googleplus }}
       <link rel="publisher" href="https://plus.google.com/{{ . | urlize }}">
     {{ end }}
 

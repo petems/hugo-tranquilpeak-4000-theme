@@ -16,7 +16,7 @@ baseURL = "https://example.org/"
 languageCode = "en-us"
 defaultContentLanguage = "en-us"
 title = "Hugo tranquilpeak theme 4000"
-theme = "hugo-tranquilpeak-theme-4000"
+theme = "hugo-tranquilpeak-4000-theme"
 # googleAnalytics = "UA-123-45"
 canonifyurls = true
 

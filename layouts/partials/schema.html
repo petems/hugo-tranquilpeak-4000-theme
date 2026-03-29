@@ -1,3 +1,4 @@
+{{- $author := (.Site.Params.author | default .Site.Params.Author) -}}
 <script type="application/ld+json">
 {{ if eq .Section "posts" }}
 {
@@ -13,14 +14,14 @@
   "dateModified": {{ .Lastmod }},
   "author": {
     "@type": "Person",
-    "name": {{ .Site.Params.author.name }},
+    "name": {{ $author.name }},
     {{ with ($.Scratch.Get "authorPicture") }}
     "image": {{ . }}
     {{ end }}
   },
-  "mainEntityOfPage": { 
+  "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "{{ .Permalink }}" 
+    "@id": "{{ .Permalink }}"
   },
   "publisher": {
     "@type": "Organization",
@@ -36,13 +37,13 @@
   "keywords": [{{ with .Keywords }}{{ delimit . ", " }}{{ end }}{{ if .Site.Params.keywords }}, {{ delimit .Site.Params.keywords ", " }}{{ end }}]
 }
 {{ else }}
-{  
+{
   "@context":"http://schema.org",
   "@type":"Website",
   "@id":"{{ .Site.BaseURL }}",
   "author": {
     "@type": "Person",
-    "name": {{ .Site.Params.author.name }},
+    "name": {{ $author.name }},
     {{ with ($.Scratch.Get "authorPicture") }}
     "image": {{ . }}
     {{ end }}

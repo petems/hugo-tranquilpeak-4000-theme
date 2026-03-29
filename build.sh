@@ -11,6 +11,12 @@ THEME_NAME="hugo-tranquilpeak-4000-theme"
 REQUIRED_HUGO_VERSION="0.152.2"
 HUGO_BIN="hugo"
 
+cleanup() {
+  rm -rf "${BUILD_ROOT}"
+}
+
+trap cleanup EXIT
+
 ensure_hugo_version() {
   if ! command -v hugo >/dev/null 2>&1; then
     echo "hugo not found in PATH; downloading Hugo ${REQUIRED_HUGO_VERSION}..."
@@ -67,7 +73,7 @@ if [[ ! -d node_modules ]]; then
 fi
 
 echo "Building theme assets..."
-npm run prod
+npm run --if-present prod
 
 echo "Preparing temporary Hugo site at ${SITE_DIR}..."
 rm -rf "${SITE_DIR}" "${OUTPUT_DIR_ABS}"

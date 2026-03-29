@@ -6,3 +6,6 @@ node_modules
 src/_bower_components
 resources/
 public/
+.vercel/
+.vercel-build/
+exampleSite/public/

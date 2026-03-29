@@ -17,32 +17,32 @@ This fork aims to:
 
 - **Original**: Hugo v0.53
 - **Tested**: ✅ Hugo v0.152.2 (January 2026)
-- **CI Testing**: Automated testing against Hugo versions 0.80.0-0.152.2
+- **CI Testing**: Automated testing against Hugo versions 0.114.0-0.152.2
+- **Minimum Hugo**: 0.114.0 (required for Dart Sass via Hugo Pipes)
 - **Known Issues**: See [HUGO_COMPATIBILITY_TEST.md](HUGO_COMPATIBILITY_TEST.md) for detailed compatibility report and migration guide
 
 ### Technical Stack
 
-The theme is built using Grunt for asset compilation and uses SCSS following the 7-1 pattern from Sass Guidelines.
+The theme uses **Hugo Pipes** for all asset processing (SCSS compilation, JS concatenation, minification, fingerprinting). No external build tools (Grunt, Webpack, etc.) are required. JavaScript is vanilla JS (no jQuery dependency). SCSS follows the 7-1 pattern from Sass Guidelines.
 
 ## Development Commands
-
-### Building and Development
-
-- `npm install` - Install dependencies (must be run after cloning)
-- `npm run start` - Build theme and watch for changes (development mode)
-- `npm run prod` - Build theme for production with optimization (concat, minify)
-- `npm run lint` - Check JavaScript code style with ESLint (Google code style)
 
 ### Hugo Commands
 
 - `hugo server` - Start Hugo development server to preview the theme
+- `hugo --minify` - Build the site for production (Hugo Pipes handles all asset optimization)
+
+### Linting
+
+- `npm install` - Install ESLint (only needed for linting)
+- `npm run lint` - Check JavaScript code style with ESLint
 
 ### Important Build Notes
 
-- Development builds link individual CSS/JS files to views
-- Production builds concatenate and minify all assets into single files
-- The build process generates `static/` folder contents from `src/` folder
-- Assets are synchronized from `src/` to `static/` during builds
+- **No external build step required** -- Hugo Pipes handles SCSS compilation, JS bundling, minification, and fingerprinting
+- In development mode (`hugo server`), assets are served unminified
+- In production mode (`hugo --minify` or `HUGO_ENVIRONMENT=production`), assets are minified and fingerprinted
+- Hugo **extended version** is required (for SCSS compilation)
 
 ## Architecture
 
@@ -54,64 +54,69 @@ The theme is built using Grunt for asset compilation and uses SCSS following the
 │   ├── partials/     # Reusable template components
 │   ├── shortcodes/   # Hugo shortcodes
 │   └── taxonomy/     # Tag/category archive pages
-├── src/              # Source assets (pre-build)
+├── assets/           # Source assets (processed by Hugo Pipes)
 │   ├── scss/         # SCSS stylesheets (7-1 pattern)
-│   ├── js/           # JavaScript source files
-│   └── images/       # Source images
-├── static/           # Generated assets (output from build)
-│   ├── css/          # Compiled CSS
-│   ├── js/           # Compiled/concatenated JS
-│   └── images/       # Synchronized images
-├── tasks/            # Grunt task definitions
-│   ├── config/       # Individual Grunt task configs
-│   ├── register/     # Composite task definitions
-│   └── pipeline.js   # Asset injection configuration
+│   ├── js/           # JavaScript source files (vanilla JS)
+│   └── images/       # Theme images
 ├── i18n/             # Internationalization files
 ├── archetypes/       # Hugo content templates
 └── exampleSite/      # Example site configuration
 ```
 
-### Asset Pipeline
+### Asset Pipeline (Hugo Pipes)
 
-The asset pipeline is managed by Grunt and defined in `tasks/pipeline.js`:
+Assets are processed entirely by Hugo Pipes, configured in template partials:
 
-1. **SCSS Compilation**: `src/scss/tranquilpeak.scss` → `static/css/tranquilpeak.css`
-2. **JS Concatenation**: Individual JS files → `static/js/tranquilpeak.js`
-3. **Production Optimization**: Minification and concatenation of all assets
-4. **Asset Injection**: `sails-linker` injects asset references into templates
-
-Asset files listed in `tasks/pipeline.js` are injected into:
-- CSS files → `layouts/partials/head.html`
-- JS files → `layouts/partials/script.html`
+1. **SCSS Compilation**: `assets/scss/tranquilpeak.scss` → compiled via `toCSS` in `layouts/partials/head.html`
+2. **JS Concatenation**: Individual JS files → concatenated via `resources.Concat` in `layouts/partials/script.html`
+3. **Production Optimization**: `minify | fingerprint` applied when `hugo.IsProduction` is true
+4. **Image Processing**: Page resource images get WebP variants and responsive srcsets via shortcodes
 
 ### Key JavaScript Modules
 
-Each JS file in `src/js/` implements a specific feature:
+Each JS file in `assets/js/` implements a specific feature (vanilla JS, no jQuery):
 - `sidebar.js` - Sidebar open/close with swipe gestures
 - `header.js` - Auto-hide header on scroll down, show on scroll up
-- `about.js` - About card animation
-- `fancybox.js` - Image lightbox functionality
+- `about.js` - About card animation (CSS transitions)
+- `fancybox.js` - Image lightbox via GLightbox (replaces jQuery Fancybox)
 - `image-gallery.js` - Image gallery resizing
 - `codeblock-resizer.js` - Code block width adjustment
 - `tabbed-codeblocks.js` - Tabbed code block animations
 - `post-bottom-bar.js` - Post bottom bar visibility control
 - `share-options.js` - Share options bar toggle
+- `search-modal.js` - Algolia search modal
+- `smartresize.js` - Debounced window resize utility
 - `*-filter.js` - Archive/category/tag post filtering
+
+### External Dependencies (CDN)
+
+- **Font Awesome 5.15.3** - Icons
+- **GLightbox 3.3.0** - Image lightbox (replaced jQuery Fancybox)
+- **Highlight.js 11.1.0** or **Prism.js 1.24.1** - Syntax highlighting (configurable)
+- **MathJax 2.7.4** - Math rendering (optional)
+- **Moment.js 2.19.1** + **Algoliasearch 3.24.5** - Search (optional, requires Algolia config)
 
 ### SCSS Architecture
 
 Follows the 7-1 pattern (see Sass Guidelines):
 - Organized into `base/`, `components/`, `layout/`, `pages/`, `themes/`, `utils/`, `vendor/`
-- Main entry point: `src/scss/tranquilpeak.scss`
+- Main entry point: `assets/scss/tranquilpeak.scss`
 
 ### Hugo Template Structure
 
 - `layouts/index.html` - Homepage template
-- `layouts/_default/baseof.html` - Base template (if exists)
 - `layouts/_default/single.html` - Single post template
 - `layouts/_default/list.html` - List/archive template
 - `layouts/partials/` - Reusable components (header, footer, sidebar, post components)
 - `layouts/taxonomy/` - Category and tag pages
+
+### Image Processing
+
+The theme uses Hugo's built-in image processing for local page resources:
+- **Shortcodes** (`image.html`, `wide-image.html`): Generate responsive `<picture>` elements with WebP sources and srcsets for page resources; external URLs pass through unchanged
+- **Cover images** (`cover.html`): Theme cover images from `assets/images/` are served via Hugo resources with fingerprinting
+- **Lazy loading**: All below-fold images use `loading="lazy"` and `decoding="async"`
+- **Gallery images**: Lazy-loaded with GLightbox integration
 
 ## Configuration
 
@@ -125,7 +130,7 @@ Theme configuration is in the user's Hugo `config.toml`. See `exampleSite/config
 ## Code Style
 
 - JavaScript follows ESLint with Google code style configuration
-- ESLint config: `src/js/.eslintrc.json` and root `.eslintrc`
+- ESLint config: `assets/js/.eslintrc.json` and root `.eslintrc`
 - Always run `npm run lint` before committing JS changes
 
 ## Working with This Fork
@@ -138,11 +143,17 @@ Since this is hugo-tranquilpeak-theme-4000 (a maintained fork):
 
 ### Applied Hugo Compatibility Fixes
 
-1. **Google Analytics Template** (layouts/partials/head.html:line 61-65)
+1. **Google Analytics Template** (layouts/partials/head.html)
    - Removed references to deprecated `_internal/google_analytics_async.html`
    - Now uses single `_internal/google_analytics.html` template (Hugo v0.128.0+ compatible)
 
-2. **Configuration Updates Required for Users**
+2. **Hugo Pipes Migration**
+   - Replaced Grunt build system with Hugo Pipes for all asset processing
+   - Removed jQuery dependency -- all JS is vanilla
+   - Replaced Fancybox (jQuery plugin) with GLightbox (vanilla JS)
+   - Added responsive image support with WebP variants for page resources
+
+3. **Configuration Updates Required for Users**
    - `paginate = 7` → `[pagination] pagerSize = 7` (Hugo v0.128.0+)
    - Users must update their site config when upgrading
 
@@ -155,30 +166,25 @@ See HUGO_COMPATIBILITY_TEST.md for complete list of changes and migration guide.
 The repository includes automated compatibility testing via `.github/workflows/hugo-compatibility.yml`:
 
 - **Triggers**: Pushes to master/main/develop, pull requests, manual dispatch
-- **Test Matrix**: Hugo versions 0.80.0 through 0.152.2
+- **Test Matrix**: Hugo versions 0.114.0 through 0.152.2
 - **Strategy**: fail-fast disabled to test all versions even if one fails
+- **Requires**: Hugo extended version (for SCSS compilation)
 - **Steps**:
   1. Checkout theme code
-  2. Install Node.js and npm dependencies
-  3. Build theme assets with Grunt (`npm run prod`)
-  4. Install specific Hugo version
-  5. Create test site and link theme
-  6. Copy example content
-  7. Configure site with modern syntax
-  8. Build Hugo site with `--minify --verbose`
-  9. Verify output (public/ directory and index.html exist)
-  10. Upload artifacts on failure for debugging
+  2. Install specific Hugo version (extended)
+  3. Create test site and link theme
+  4. Copy example content
+  5. Configure site with modern syntax
+  6. Build Hugo site with `--minify`
+  7. Verify output (public/ directory and index.html exist)
+  8. Upload artifacts on failure for debugging
 
 ### Running Tests Locally
 
 To replicate the CI test locally:
 
 ```bash
-# Build the theme
-npm ci
-npm run prod
-
-# Create a test site
+# Create a test site (no npm build needed!)
 cd ..
 hugo new site test-site
 cd test-site
@@ -197,7 +203,7 @@ theme = "hugo-tranquilpeak-theme-4000"
   pagerSize = 7
 EOF
 
-# Build
+# Build (Hugo Pipes handles all asset compilation)
 hugo --minify --verbose
 ```
 
@@ -216,8 +222,8 @@ matrix:
 ## Testing
 
 This theme has no automated tests. Manual testing requires:
-1. Building the theme: `npm run prod`
-2. Running Hugo: `hugo server` in a Hugo site that uses this theme
-3. Testing in browser
+1. Running Hugo: `hugo server` in a Hugo site that uses this theme
+2. Testing in browser
+3. Verifying all interactive features (sidebar, lightbox, filters, etc.)
 
 Use `exampleSite/` as a test site by running `hugo server` from within that directory.

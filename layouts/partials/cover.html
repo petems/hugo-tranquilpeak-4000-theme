@@ -2,9 +2,13 @@
   {{ if (in . "://") }}
     <div id="cover" style="background-image:url('{{ . | absURL }}');"></div>
   {{ else }}
-    {{ if (fileExists (printf "static/images/%s" .)) }}
-      {{ $cover := (printf "/images/%s" .) }}
-      <div id="cover" style="background-image:url('{{ $cover | absURL }}');"></div>
+    {{- $imgPath := printf "images/%s" . -}}
+    {{- $img := resources.Get $imgPath -}}
+    {{ if $img }}
+      {{- if hugo.IsProduction -}}
+        {{- $img = $img | fingerprint -}}
+      {{- end -}}
+      <div id="cover" style="background-image:url('{{ $img.RelPermalink }}');"></div>
     {{ else }}
       <div id="cover" style="background-image:url('{{ . | absURL }}');"></div>
     {{ end }}

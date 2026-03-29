@@ -1,0 +1,11 @@
+{
+    "globals": {
+        "GLightbox": false,
+        "moment": false,
+        "algoliaIndex": false,
+        "smartresize": false
+    },
+    "env": {
+        "browser": true
+    }
+}

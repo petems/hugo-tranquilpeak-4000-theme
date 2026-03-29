@@ -1,5 +1,5 @@
 {{ $.Scratch.Set "i-classes" (split (.Get "classes") " ") }}
-{{ if in ($.Scratch.Get "i-classes") "clear" }} 
+{{ if in ($.Scratch.Get "i-classes") "clear" }}
   {{ $.Scratch.Set "i-clear" 1 }}
   {{ $classes := $.Scratch.Get "i-classes" }}
   {{ $.Scratch.Set "i-classes" (slice) }}
@@ -9,7 +9,7 @@
     {{ end }}
   {{ end }}
 {{ end }}
-{{ if in ($.Scratch.Get "i-classes") "fancybox" }} 
+{{ if in ($.Scratch.Get "i-classes") "fancybox" }}
   {{ $.Scratch.Set "i-fancybox" 1 }}
   {{ $classes := $.Scratch.Get "i-classes" }}
   {{ $.Scratch.Set "i-classes" (slice) }}
@@ -19,15 +19,44 @@
     {{ end }}
   {{ end }}
 {{ end }}
+{{- $src := .Get "src" -}}
+{{- $isExternal := in $src "://" -}}
+{{- $pageResource := false -}}
+{{- if not $isExternal -}}
+  {{- $pageResource = .Page.Resources.GetMatch $src -}}
+{{- end -}}
 <div class="figure {{ delimit ($.Scratch.Get "i-classes") " " }}" {{ with (.Get "thumbnailWidth") }}style="width:{{ . }};"{{ end }}>
   {{ if eq ($.Scratch.Get "i-fancybox") 1 }}
-    <a class="fancybox" href="{{ .Get "src" }}"{{ with (.Get "title") }} title="{{ . }}"{{ end }} data-fancybox="{{ with (.Get "group") }}{{ . }}{{ end }}">
+    <a class="fancybox" href="{{ if $pageResource }}{{ $pageResource.RelPermalink }}{{ else }}{{ $src }}{{ end }}"{{ with (.Get "title") }} title="{{ . }}"{{ end }} data-fancybox="{{ with (.Get "group") }}{{ . }}{{ end }}">
   {{ end }}
-    <img class="fig-img" src="{{ with (.Get "thumbnail") }}{{ . }}{{ else }}{{ .Get "src" }}{{ end }}" {{ if or (.Get "thumbnail-width") (.Get "thumbnail-height") }}style="{{ with (.Get "thumbnail-width") }}width: {{ . }};{{ end }}{{ with (.Get "thumbnail-height") }}height: {{ . }};{{ end }}"{{ end }}{{ with (.Get "title") }} alt="{{ . }}"{{ end }}>
+  {{- if $pageResource -}}
+    {{- $thumbSrc := $pageResource -}}
+    {{- with (.Get "thumbnail") -}}
+      {{- $thumbSrc = $.Page.Resources.GetMatch . | default $pageResource -}}
+    {{- end -}}
+    {{- $small := $thumbSrc.Resize "640x" -}}
+    {{- $medium := $thumbSrc.Resize "1024x" -}}
+    <picture>
+      {{- $smallWebp := $small.Resize (printf "%dx webp" $small.Width) -}}
+      {{- $mediumWebp := $medium.Resize (printf "%dx webp" $medium.Width) -}}
+      <source type="image/webp"
+        srcset="{{ $smallWebp.RelPermalink }} 640w, {{ $mediumWebp.RelPermalink }} 1024w"
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1024px">
+      <img class="fig-img"
+        src="{{ $medium.RelPermalink }}"
+        srcset="{{ $small.RelPermalink }} 640w, {{ $medium.RelPermalink }} 1024w"
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1024px"
+        {{ with (.Get "title") }}alt="{{ . }}"{{ end }}
+        loading="lazy" decoding="async"
+        {{ if or (.Get "thumbnail-width") (.Get "thumbnail-height") }}style="{{ with (.Get "thumbnail-width") }}width: {{ . }};{{ end }}{{ with (.Get "thumbnail-height") }}height: {{ . }};{{ end }}"{{ end }}>
+    </picture>
+  {{- else -}}
+    <img class="fig-img" src="{{ with (.Get "thumbnail") }}{{ . }}{{ else }}{{ $src }}{{ end }}" {{ if or (.Get "thumbnail-width") (.Get "thumbnail-height") }}style="{{ with (.Get "thumbnail-width") }}width: {{ . }};{{ end }}{{ with (.Get "thumbnail-height") }}height: {{ . }};{{ end }}"{{ end }}{{ with (.Get "title") }} alt="{{ . }}"{{ end }} loading="lazy" decoding="async">
+  {{- end -}}
   {{ if eq ($.Scratch.Get "i-fancybox") 1 }}
     </a>
   {{ end }}
-  {{ if and (.Get "title") (not (in ($.Scratch.Get "i-classes") "nocaption")) }} 
+  {{ if and (.Get "title") (not (in ($.Scratch.Get "i-classes") "nocaption")) }}
     <span class="caption">{{ .Get "title" }}</span>
   {{ end }}
 </div>

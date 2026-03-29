@@ -1,5 +1,30 @@
 </div>
+{{- $src := .Get "src" -}}
+{{- $isExternal := in $src "://" -}}
+{{- $pageResource := false -}}
+{{- if not $isExternal -}}
+  {{- $pageResource = .Page.Resources.GetMatch $src -}}
+{{- end -}}
 <div class="figure figure--fullWidth">
-  <img class="figure-img" src="{{ .Get "src" }}" {{ with (.Get "title") }}alt="{{ . }}"{{ end }} />{{ with (.Get "title") }}<span class="caption">{{ . }}</span>{{ end }}
+  {{- if $pageResource -}}
+    {{- $large := $pageResource.Resize "1920x" -}}
+    {{- $medium := $pageResource.Resize "1024x" -}}
+    <picture>
+      {{- $largeWebp := $large.Resize (printf "%dx webp" $large.Width) -}}
+      {{- $mediumWebp := $medium.Resize (printf "%dx webp" $medium.Width) -}}
+      <source type="image/webp"
+        srcset="{{ $mediumWebp.RelPermalink }} 1024w, {{ $largeWebp.RelPermalink }} 1920w"
+        sizes="100vw">
+      <img class="figure-img"
+        src="{{ $large.RelPermalink }}"
+        srcset="{{ $medium.RelPermalink }} 1024w, {{ $large.RelPermalink }} 1920w"
+        sizes="100vw"
+        {{ with (.Get "title") }}alt="{{ . }}"{{ end }}
+        loading="lazy" decoding="async" />
+    </picture>
+  {{- else -}}
+    <img class="figure-img" src="{{ $src }}" {{ with (.Get "title") }}alt="{{ . }}"{{ end }} loading="lazy" decoding="async" />
+  {{- end -}}
+  {{ with (.Get "title") }}<span class="caption">{{ . }}</span>{{ end }}
 </div>
 <div class="main-content-wrap">

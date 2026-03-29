@@ -21,32 +21,18 @@ jobs:
           - '0.135.0'
           # Version where pagination changed
           - '0.128.0'
-          # Intermediate versions  (tested and working)
+          # Intermediate versions (tested and working)
           - '0.120.0'
-          - '0.110.0'
-          # Note: Hugo 0.80-0.100 fail due to shortcode resolution differences
-          # All versions 0.110+ work correctly
+          - '0.114.0'
+          # Note: Hugo Pipes SCSS requires extended version
+          # Hugo 0.114.0+ includes embedded Dart Sass
+          # Versions below 0.114.0 need libsass (deprecated)
 
     steps:
       - name: Checkout theme
         uses: actions/checkout@v4
         with:
           path: theme
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-          cache-dependency-path: theme/package-lock.json
-
-      - name: Install npm dependencies
-        working-directory: theme
-        run: npm ci
-
-      - name: Build theme assets
-        working-directory: theme
-        run: npm run prod
 
       - name: Setup Hugo ${{ matrix.hugo-version }}
         uses: peaceiris/actions-hugo@v3

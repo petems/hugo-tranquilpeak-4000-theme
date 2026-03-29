@@ -1,15 +1,34 @@
-<!--EXTERNAL SCRIPTS-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {{ if eq .Site.Params.syntaxHighlighter "highlight.js" }}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js" integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {{ else if eq .Site.Params.syntaxHighlighter "prism.js" }}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {{ end }}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<!--EXTERNAL SCRIPTS END-->
-<!--SCRIPTS-->
-<script src="{{ "/js/script-f9rwlnixwgub0hrpgkoszvforyguhlhabhvhnffcin02tz22bywis62dj.min.js" | absURL }}"></script>
-<!--SCRIPTS END-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.3.0/js/glightbox.min.js" integrity="sha512-RBWI5Qf647bcVhqbEnRoL4KuUT+Liz+oG5jtF+HP05Oa5088M9G0GxG0uoHR9cyq35VbjahcI+Hd1xwY8E1/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{{- $jsFiles := slice
+  "js/smartresize.js"
+  "js/about.js"
+  "js/archives-filter.js"
+  "js/categories-filter.js"
+  "js/codeblock-resizer.js"
+  "js/fancybox.js"
+  "js/header.js"
+  "js/image-gallery.js"
+  "js/post-bottom-bar.js"
+  "js/search-modal.js"
+  "js/share-options.js"
+  "js/sidebar.js"
+  "js/tabbed-codeblocks.js"
+  "js/tags-filter.js"
+-}}
+{{- $js := slice -}}
+{{- range $jsFiles -}}
+  {{- $js = $js | append (resources.Get .) -}}
+{{- end -}}
+{{- $bundle := $js | resources.Concat "js/tranquilpeak.js" -}}
+{{- if hugo.IsProduction -}}
+  {{- $bundle = $bundle | minify | fingerprint -}}
+{{- end -}}
+<script src="{{ $bundle.RelPermalink }}"></script>
 {{ range .Site.Params.customJS }}
   {{ if isset . "src" }}
     <script{{ range $key, $value := . }} {{ if eq $key "src" }}{{ (printf "%s=\"%s\"" $key ($value | absURL)) | safeHTMLAttr }}{{ else if and (in "async defer" $key) }}{{ if $value }}{{ (printf "%s" $key) | safeHTMLAttr }}{{ end }}{{ else }}{{ (printf "%s=\"%s\"" $key (string $value)) | safeHTMLAttr }}{{ end }}{{ end }}></script>
@@ -19,11 +38,11 @@
 {{ end }}
 {{ if eq .Site.Params.syntaxHighlighter "highlight.js" }}
 <script>
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
   hljs.configure({ classPrefix: '', useBR: false });
-  $('pre.code-highlight > code, pre > code').each(function(i, block) {
-    if (!$(this).hasClass('codeblock')) {
-      $(this).addClass('codeblock');
+  document.querySelectorAll('pre.code-highlight > code, pre > code').forEach(function(block) {
+    if (!block.classList.contains('codeblock')) {
+      block.classList.add('codeblock');
     }
     hljs.highlightBlock(block);
   });

@@ -1,4 +1,4 @@
-(function($) {
+(function() {
   'use strict';
 
   // Filter posts by using their categories on categories page : `/categories`
@@ -9,19 +9,19 @@
    * @constructor
    */
   var TagsFilter = function(tagsArchivesElem) {
-    this.$form = $(tagsArchivesElem).find('#filter-form');
-    this.$inputSearch = $(tagsArchivesElem + ' #filter-form input[name=tag]');
-    this.$archiveResult = $(tagsArchivesElem).find('.archive-result');
-    this.$tags = $(tagsArchivesElem).find('.tag');
-    this.$posts = $(tagsArchivesElem).find('.archive');
-    this.tags = tagsArchivesElem + ' .tag';
-    this.posts = tagsArchivesElem + ' .archive';
+    var container = document.querySelector(tagsArchivesElem);
+    this.form = container.querySelector('#filter-form');
+    this.inputSearch = container.querySelector('#filter-form input[name=tag]');
+    this.archiveResult = container.querySelector('.archive-result');
+    this.tags = container.querySelectorAll('.tag');
+    this.posts = container.querySelectorAll('.archive');
+    this.containerSelector = tagsArchivesElem;
     // Html data attribute without `data-` of `.archive` element which contains the name of tag
     this.dataTag = 'tag';
     this.messages = {
-      zero: this.$archiveResult.data('message-zero'),
-      one: this.$archiveResult.data('message-one'),
-      other: this.$archiveResult.data('message-other')
+      zero: this.archiveResult.dataset.messageZero,
+      one: this.archiveResult.dataset.messageOne,
+      other: this.archiveResult.dataset.messageOther
     };
   };
 
@@ -34,12 +34,12 @@
       var self = this;
 
       // Detect keystroke of the user
-      self.$inputSearch.keyup(function() {
+      self.inputSearch.addEventListener('keyup', function() {
         self.filter(self.getSearch());
       });
 
       // Block submit action
-      self.$form.submit(function(e) {
+      self.form.addEventListener('submit', function(e) {
         e.preventDefault();
       });
     },
@@ -49,7 +49,7 @@
      * @returns {String} the name of tag entered by the user
      */
     getSearch: function() {
-      return this.$inputSearch.val().toLowerCase();
+      return this.inputSearch.value.toLowerCase();
     },
 
     /**
@@ -76,16 +76,20 @@
      */
     showResult: function(numbTags) {
       if (numbTags === -1) {
-        this.$archiveResult.html('').hide();
+        this.archiveResult.innerHTML = '';
+        this.archiveResult.style.display = 'none';
       }
       else if (numbTags === 0) {
-        this.$archiveResult.html(this.messages.zero).show();
+        this.archiveResult.innerHTML = this.messages.zero;
+        this.archiveResult.style.display = '';
       }
       else if (numbTags === 1) {
-        this.$archiveResult.html(this.messages.one).show();
+        this.archiveResult.innerHTML = this.messages.one;
+        this.archiveResult.style.display = '';
       }
       else {
-        this.$archiveResult.html(this.messages.other.replace(/\{n\}/, numbTags)).show();
+        this.archiveResult.innerHTML = this.messages.other.replace(/\{n\}/, numbTags);
+        this.archiveResult.style.display = '';
       }
     },
 
@@ -95,7 +99,8 @@
      * @returns {Number}
      */
     countTags: function(tag) {
-      return $(this.posts + '[data-' + this.dataTag + '*=\'' + tag + '\']').length;
+      var selector = this.containerSelector + ' .archive[data-' + this.dataTag + '*=\'' + tag + '\']';
+      return document.querySelectorAll(selector).length;
     },
 
     /**
@@ -104,8 +109,14 @@
      * @return {void}
      */
     showPosts: function(tag) {
-      $(this.tags + '[data-' + this.dataTag + '*=\'' + tag + '\']').show();
-      $(this.posts + '[data-' + this.dataTag + '*=\'' + tag + '\']').show();
+      var sel = this.containerSelector;
+      var dataTag = this.dataTag;
+      document.querySelectorAll(sel + ' .tag[data-' + dataTag + '*=\'' + tag + '\']').forEach(function(el) {
+        el.style.display = '';
+      });
+      document.querySelectorAll(sel + ' .archive[data-' + dataTag + '*=\'' + tag + '\']').forEach(function(el) {
+        el.style.display = '';
+      });
     },
 
     /**
@@ -113,8 +124,8 @@
      * @return {void}
      */
     showAll: function() {
-      this.$tags.show();
-      this.$posts.show();
+      this.tags.forEach(function(el) { el.style.display = ''; });
+      this.posts.forEach(function(el) { el.style.display = ''; });
     },
 
     /**
@@ -122,15 +133,15 @@
      * @return {void}
      */
     hideAll: function() {
-      this.$tags.hide();
-      this.$posts.hide();
+      this.tags.forEach(function(el) { el.style.display = 'none'; });
+      this.posts.forEach(function(el) { el.style.display = 'none'; });
     }
   };
 
-  $(document).ready(function() {
-    if ($('#tags-archives').length) {
+  document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('tags-archives')) {
       var tagsFilter = new TagsFilter('#tags-archives');
       tagsFilter.run();
     }
   });
-})(jQuery);
+})();

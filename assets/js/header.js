@@ -3,7 +3,7 @@
 
   var Header = function() {
     this.header = document.getElementById('header');
-    this.headerHeight = this.header.offsetHeight;
+    this.headerHeight = this.header ? this.header.offsetHeight : 0;
     this.headerUpCSSClass = 'header-up';
     this.delta = 15;
     this.lastScrollTop = 0;
@@ -11,6 +11,10 @@
 
   Header.prototype = {
     run: function() {
+      if (!this.header) {
+        return;
+      }
+
       var self = this;
       var didScroll;
 
@@ -35,7 +39,8 @@
 
       if ((scrollTop > this.lastScrollTop) && (scrollTop > this.headerHeight)) {
         this.header.classList.add(this.headerUpCSSClass);
-      } else if (scrollTop + window.innerHeight < document.documentElement.scrollHeight) {
+      }
+      else if (scrollTop + window.innerHeight < document.documentElement.scrollHeight) {
         this.header.classList.remove(this.headerUpCSSClass);
       }
 

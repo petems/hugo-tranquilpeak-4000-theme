@@ -48,7 +48,7 @@
      * @returns {String} The date entered by the user
      */
     getSearch: function() {
-      return this.searchInput.value.replace(/([\/|.|-])/g, '').toLowerCase();
+      return this.searchInput.value.replace(/\D/g, '');
     },
 
     /**
@@ -146,9 +146,15 @@
      * @returns {void}
      */
     showAll: function() {
-      this.postsYear.forEach(function(el) { el.style.display = ''; });
-      this.postsMonth.forEach(function(el) { el.style.display = ''; });
-      this.postsDay.forEach(function(el) { el.style.display = ''; });
+      this.postsYear.forEach(function(el) {
+        el.style.display = '';
+      });
+      this.postsMonth.forEach(function(el) {
+        el.style.display = '';
+      });
+      this.postsDay.forEach(function(el) {
+        el.style.display = '';
+      });
     },
 
     /**
@@ -156,9 +162,15 @@
      * @returns {void}
      */
     hideAll: function() {
-      this.postsYear.forEach(function(el) { el.style.display = 'none'; });
-      this.postsMonth.forEach(function(el) { el.style.display = 'none'; });
-      this.postsDay.forEach(function(el) { el.style.display = 'none'; });
+      this.postsYear.forEach(function(el) {
+        el.style.display = 'none';
+      });
+      this.postsMonth.forEach(function(el) {
+        el.style.display = 'none';
+      });
+      this.postsDay.forEach(function(el) {
+        el.style.display = 'none';
+      });
     }
   };
 

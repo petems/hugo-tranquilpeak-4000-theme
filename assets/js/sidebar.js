@@ -25,6 +25,10 @@
     run: function() {
       var self = this;
 
+      if (!self.sidebar) {
+        return;
+      }
+
       if (this.openBtn) {
         this.openBtn.addEventListener('click', function() {
           if (!self.sidebar.classList.contains('pushed')) {
@@ -76,7 +80,8 @@
         if (window.innerWidth > self.mediumScreenWidth) {
           self.resetSidebarPosition();
           self.resetBlogPosition();
-        } else {
+        }
+        else {
           self.closeSidebar();
         }
       });

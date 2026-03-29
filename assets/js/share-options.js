@@ -63,6 +63,8 @@
 
   document.addEventListener('DOMContentLoaded', function() {
     var shareOptionsBar = new ShareOptionsBar();
-    shareOptionsBar.run();
+    if (shareOptionsBar.shareOptionsBar) {
+      shareOptionsBar.run();
+    }
   });
 })();

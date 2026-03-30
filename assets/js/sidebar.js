@@ -169,7 +169,7 @@
 
     swipeBlogToLeft() {
       const first = this.blogElements[0];
-      if (first?.classList.contains('pushed') && !first.classList.contains('processing')) {
+      if (first && first.classList.contains('pushed') && !first.classList.contains('processing')) {
         this.blogElements.forEach((el) => {
           el.classList.add('processing');
           el.classList.remove('pushed');

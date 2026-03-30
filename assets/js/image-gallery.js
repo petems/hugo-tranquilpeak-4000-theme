@@ -16,7 +16,8 @@
 
     resizeImages() {
       this.images.forEach((image) => {
-        const photoBox = image.parentElement.parentElement;
+        const photoBox = image.parentElement?.parentElement;
+        if (!photoBox) return;
         const photoBoxWidth = photoBox.offsetWidth;
         const photoBoxHeight = photoBox.clientHeight;
         let imageWidth = image.offsetWidth;

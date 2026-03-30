@@ -44,23 +44,22 @@ How can I migrate my current version? Please read [CHANGELOG.md](https://github.
 - **Fork Maintainer**: hugo-tranquilpeak-theme-4000 community
 - **Version**: 4000.0.0
 - **Original Compatibility**: Hugo v0.53
-- **Current Compatibility**: ✅ Hugo v0.140.0+
+- **Current Compatibility**: ✅ Hugo v0.140.0+ (minimum required)
 
 ## Hugo Version Compatibility
 
 | Hugo Version Range | Status | Notes |
 |-------------------|--------|-------|
-| **v0.155.x** | ✅ Tested | Latest tested version |
+| **v0.155.x+** | ✅ Tested | Latest tested version |
 | **v0.140.0 - v0.154.x** | ✅ Tested | Supported compatibility window |
-| **v0.128.0 - v0.139.x** | ⚠️ Unsupported | Below maintained floor for this fork |
-| **v0.110.0 - v0.127.x** | ⚠️ Unsupported | Below maintained floor for this fork |
-| **v0.53.0 - v0.109.x** | ⚠️ Unsupported | Original range, no longer maintained here |
+| **v0.128.0 - v0.139.x** | ❌ Not Supported | Below minimum required version |
+| **v0.110.0 - v0.127.x** | ❌ Not Supported | Below minimum required version |
+| **v0.53.0 - v0.109.x** | ❌ Not Supported | Original range, no longer maintained here |
 | **< v0.53.0** | ❌ Not Supported | Pre-release compatibility unknown |
 
 **Legend:**
 - ✅ **Tested** - Verified working in automated CI tests
-- ⚠️ **Untested** - Not tested in CI, compatibility unknown
-- ❌ **Not Supported** - Known issues or untested older versions
+- ❌ **Not Supported** - Incompatible or not tested
 
 See [HUGO_COMPATIBILITY_TEST.md](HUGO_COMPATIBILITY_TEST.md) for detailed test results and migration guide.
 
@@ -171,8 +170,10 @@ To understand the code, the workflow and edit the theme, consult the following d
 
 This fork includes automated compatibility testing against multiple Hugo versions via GitHub Actions.
 
+**Minimum Required Version:** Hugo v0.140.0
+
 **Tested Hugo Versions:**
-- 0.140.0 through latest stable (CI tested)
+- 0.140.0, 0.145.0, 0.150.0, 0.155.3+ (CI tested)
 - Additional versions tested on-demand
 
 **CI Status:** Check the badge at the top of this README for current build status.

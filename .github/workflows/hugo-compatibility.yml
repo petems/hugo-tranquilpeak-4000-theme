@@ -15,14 +15,11 @@ jobs:
             fail-fast: false
             matrix:
                 hugo-version:
-                    # Maintained support window
+                    # Maintained support window (0.140.0+)
                     - "0.155.3"
                     - "0.150.0"
+                    - "0.145.0"
                     - "0.140.0"
-                    # Baseline compatibility floor for Dart Sass in Hugo Pipes
-                    - "0.128.0"
-                    - "0.120.0"
-                    - "0.114.0"
 
         steps:
             - name: Checkout theme

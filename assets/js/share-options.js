@@ -1,68 +1,74 @@
-(function() {
+(() => {
   'use strict';
 
-  var ShareOptionsBar = function() {
-    this.shareOptionsBar = document.getElementById('share-options-bar');
-    this.openBtns = document.querySelectorAll('.btn-open-shareoptions');
-    this.closeBtn = document.getElementById('btn-close-shareoptions');
-    this.body = document.body;
-  };
+  class ShareOptionsBar {
+    constructor() {
+      this.shareOptionsBar = document.getElementById('share-options-bar');
+      this.openBtns = document.querySelectorAll('.btn-open-shareoptions');
+      this.closeBtn = document.getElementById('btn-close-shareoptions');
+      this.body = document.body;
+    }
 
-  ShareOptionsBar.prototype = {
-    run: function() {
-      var self = this;
-
-      self.openBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          if (!self.shareOptionsBar.classList.contains('opened')) {
-            self.openShareOptions();
-            self.closeBtn.style.display = '';
+    run() {
+      this.openBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          if (
+            !this.shareOptionsBar.classList.contains('opened') &&
+            !this.shareOptionsBar.classList.contains('processing')
+          ) {
+            this.openShareOptions();
+            if (this.closeBtn) {
+              this.closeBtn.style.display = '';
+            }
           }
         });
       });
 
-      if (self.closeBtn) {
-        self.closeBtn.addEventListener('click', function() {
-          if (self.shareOptionsBar.classList.contains('opened')) {
-            self.closeShareOptions();
-            self.closeBtn.style.display = 'none';
+      if (this.closeBtn) {
+        this.closeBtn.addEventListener('click', () => {
+          if (
+            this.shareOptionsBar.classList.contains('opened') &&
+            !this.shareOptionsBar.classList.contains('processing')
+          ) {
+            this.closeShareOptions();
+            this.closeBtn.style.display = 'none';
           }
         });
       }
-    },
+    }
 
-    openShareOptions: function() {
-      var self = this;
+    openShareOptions() {
+      if (
+        !this.shareOptionsBar.classList.contains('opened') &&
+        !this.shareOptionsBar.classList.contains('processing')
+      ) {
+        this.shareOptionsBar.classList.add('processing', 'opened');
+        this.body.style.overflow = 'hidden';
 
-      if (!self.shareOptionsBar.classList.contains('opened') &&
-        !self.shareOptionsBar.classList.contains('processing')) {
-        self.shareOptionsBar.classList.add('processing', 'opened');
-        self.body.style.overflow = 'hidden';
-
-        setTimeout(function() {
-          self.shareOptionsBar.classList.remove('processing');
-        }, 250);
-      }
-    },
-
-    closeShareOptions: function() {
-      var self = this;
-
-      if (self.shareOptionsBar.classList.contains('opened') &&
-        !self.shareOptionsBar.classList.contains('processing')) {
-        self.shareOptionsBar.classList.add('processing');
-        self.shareOptionsBar.classList.remove('opened');
-
-        setTimeout(function() {
-          self.shareOptionsBar.classList.remove('processing');
-          self.body.style.overflow = '';
+        setTimeout(() => {
+          this.shareOptionsBar.classList.remove('processing');
         }, 250);
       }
     }
-  };
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var shareOptionsBar = new ShareOptionsBar();
+    closeShareOptions() {
+      if (
+        this.shareOptionsBar.classList.contains('opened') &&
+        !this.shareOptionsBar.classList.contains('processing')
+      ) {
+        this.shareOptionsBar.classList.add('processing');
+        this.shareOptionsBar.classList.remove('opened');
+
+        setTimeout(() => {
+          this.shareOptionsBar.classList.remove('processing');
+          this.body.style.overflow = '';
+        }, 250);
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const shareOptionsBar = new ShareOptionsBar();
     if (shareOptionsBar.shareOptionsBar) {
       shareOptionsBar.run();
     }

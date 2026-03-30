@@ -3,7 +3,9 @@
     "version": "4000.0.0",
     "description": "A gorgeous responsive theme for Hugo blog framework",
     "scripts": {
-        "lint": "eslint assets/js/",
+        "lint": "biome check assets/js/",
+        "lint:fix": "biome check assets/js/ --write",
+        "format": "biome format assets/js/ --write",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -24,8 +26,7 @@
     },
     "homepage": "https://github.com/petems/hugo-tranquilpeak-4000-theme",
     "devDependencies": {
-        "eslint": "^7.32.0",
-        "eslint-config-google": "^0.14.0"
+        "@biomejs/biome": "2.4.9"
     },
     "engines": {
         "node": ">=18.0.0"

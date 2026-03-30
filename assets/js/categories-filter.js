@@ -1,4 +1,4 @@
-(function() {
+(() => {
   'use strict';
 
   // Filter posts by using their categories on categories page : `/categories`
@@ -8,201 +8,211 @@
    * @param {String} categoriesArchivesElem
    * @constructor
    */
-  var CategoriesFilter = function(categoriesArchivesElem) {
-    var container = document.querySelector(categoriesArchivesElem);
-    this.form = container.querySelector('#filter-form');
-    this.inputSearch = container.querySelector('input[name=category]');
-    // Element where result of the filter are displayed
-    this.archiveResult = container.querySelector('.archive-result');
-    this.postElements = container.querySelectorAll('.archive');
-    this.categoryElements = container.querySelectorAll('.category-anchor');
-    this.containerSelector = categoriesArchivesElem;
-    // Html data attribute without `data-` of `.archive` element
-    // which contains the name of category
-    this.dataCategory = 'category';
-    // Html data attribute without `data-` of `.archive` element
-    // which contains the name of parent's categories
-    this.dataParentCategories = 'parent-categories';
-    this.messages = {
-      zero: this.archiveResult.dataset.messageZero,
-      one: this.archiveResult.dataset.messageOne,
-      other: this.archiveResult.dataset.messageOther
-    };
-  };
-
-  CategoriesFilter.prototype = {
+  class CategoriesFilter {
+    constructor(categoriesArchivesElem) {
+      const container = document.querySelector(categoriesArchivesElem);
+      this.form = container.querySelector('#filter-form');
+      this.inputSearch = container.querySelector('input[name=category]');
+      // Element where result of the filter are displayed
+      this.archiveResult = container.querySelector('.archive-result');
+      this.postElements = container.querySelectorAll('.archive');
+      this.categoryElements = container.querySelectorAll('.category-anchor');
+      this.containerSelector = categoriesArchivesElem;
+      // Html data attribute without `data-` of `.archive` element
+      // which contains the name of category
+      this.dataCategory = 'category';
+      // Html data attribute without `data-` of `.archive` element
+      // which contains the name of parent's categories
+      this.dataParentCategories = 'parent-categories';
+      this.messages = {
+        zero: this.archiveResult.dataset.messageZero,
+        one: this.archiveResult.dataset.messageOne,
+        other: this.archiveResult.dataset.messageOther
+      };
+    }
 
     /**
      * Run CategoriesFilter feature
      * @return {void}
      */
-    run: function() {
-      var self = this;
-
-      self.inputSearch.addEventListener('keyup', function() {
-        self.filter(self.getSearch());
+    run() {
+      this.inputSearch.addEventListener('keyup', () => {
+        this.filter(this.getSearch());
       });
 
       // Block submit action
-      self.form.addEventListener('submit', function(e) {
+      this.form.addEventListener('submit', (e) => {
         e.preventDefault();
       });
-    },
+    }
 
     /**
      * Get the search entered by user
      * @returns {String} The name of the category
      */
-    getSearch: function() {
+    getSearch() {
       return this.inputSearch.value.toLowerCase();
-    },
+    }
 
     /**
      * Escape a string for use inside a CSS attribute selector.
      * @param {String} value - Selector value to escape.
      * @returns {String} Escaped selector value.
      */
-    escapeCssValue: function(value) {
-      return value.replace(/([\\'"\[\]])/g, '\\$1');
-    },
+    escapeCssValue(value) {
+      const input = String(value || '');
+      if (window.CSS && typeof window.CSS.escape === 'function') {
+        return window.CSS.escape(input);
+      }
+      return input.replace(/([\\'"[\]])/g, '\\$1');
+    }
 
     /**
      * Show related posts form a category and hide the others
      * @param {string} category - The name of the category
      * @return {void}
      */
-    filter: function(category) {
+    filter(category) {
       if (category === '') {
         this.showAll();
         this.showResult(-1);
-      }
-      else {
+      } else {
         this.hideAll();
         this.showPosts(category);
         this.showResult(this.countCategories(category));
       }
-    },
+    }
 
     /**
      * Display results of the search
      * @param {Number} numbCategories - The number of categories found
      * @return {void}
      */
-    showResult: function(numbCategories) {
+    showResult(numbCategories) {
       if (numbCategories === -1) {
         this.archiveResult.innerHTML = '';
         this.archiveResult.style.display = 'none';
-      }
-      else if (numbCategories === 0) {
+      } else if (numbCategories === 0) {
         this.archiveResult.innerHTML = this.messages.zero;
         this.archiveResult.style.display = '';
-      }
-      else if (numbCategories === 1) {
+      } else if (numbCategories === 1) {
         this.archiveResult.innerHTML = this.messages.one;
         this.archiveResult.style.display = '';
-      }
-      else {
+      } else {
         this.archiveResult.innerHTML = this.messages.other.replace(/\{n\}/, numbCategories);
         this.archiveResult.style.display = '';
       }
-    },
+    }
 
     /**
      * Count number of categories
      * @param {String} category - The name of theThe date of the post category
      * @returns {Number} The number of categories found
      */
-    countCategories: function(category) {
-      var selector = this.containerSelector + ' .archive[data-' + this.dataCategory + '*=\'' + this.escapeCssValue(category) + '\']';
+    countCategories(category) {
+      const selector =
+        this.containerSelector +
+        ' .archive[data-' +
+        this.dataCategory +
+        "*='" +
+        this.escapeCssValue(category) +
+        "']";
       return document.querySelectorAll(selector).length;
-    },
+    }
 
     /**
      * Show all posts from a category
      * @param {String} category - The name of the category
      * @return {void}
      */
-    showPosts: function(category) {
-      var self = this;
-      var sel = self.containerSelector;
-      var catAttr = self.dataCategory;
-      var parentAttr = self.dataParentCategories;
-      var safeCategory = self.escapeCssValue(category);
-      var categories = sel + ' .category-anchor[data-' + catAttr + '*=\'' + safeCategory + '\']';
-      var posts = sel + ' .archive[data-' + catAttr + '*=\'' + safeCategory + '\']';
+    showPosts(category) {
+      const sel = this.containerSelector;
+      const catAttr = this.dataCategory;
+      const parentAttr = this.dataParentCategories;
+      const safeCategory = this.escapeCssValue(category);
+      const categories = sel + ' .category-anchor[data-' + catAttr + "*='" + safeCategory + "']";
+      const posts = sel + ' .archive[data-' + catAttr + "*='" + safeCategory + "']";
 
-      if (self.countCategories(category) > 0) {
+      if (this.countCategories(category) > 0) {
         // Check if selected categories have parents
-        var catsWithParents = document.querySelectorAll(categories + '[data-' + parentAttr + ']');
+        const catsWithParents = document.querySelectorAll(categories + '[data-' + parentAttr + ']');
         if (catsWithParents.length) {
           // Get all categories that matches search
-          document.querySelectorAll(categories).forEach(function(el) {
+          document.querySelectorAll(categories).forEach((el) => {
             // Get all its parents categories name
-            var parents = el.getAttribute('data-' + parentAttr);
+            const parents = el.getAttribute('data-' + parentAttr);
             if (parents) {
               // Show only the title of the parents's categories and hide their posts
-              parents.split(',').forEach(function(parent) {
-                var dataAttr = '[data-' + catAttr + '=\'' + self.escapeCssValue(parent) + '\']';
-                document.querySelectorAll(sel + ' .category-anchor' + dataAttr).forEach(function(e) {
+              parents.split(',').forEach((parent) => {
+                const parentName = parent.trim();
+                if (!parentName) return;
+                const dataAttr = '[data-' + catAttr + "='" + this.escapeCssValue(parentName) + "']";
+                document.querySelectorAll(sel + ' .category-anchor' + dataAttr).forEach((e) => {
                   e.style.display = '';
                 });
-                document.querySelectorAll(sel + ' .archive' + dataAttr).forEach(function(e) {
+                document.querySelectorAll(sel + ' .archive' + dataAttr).forEach((e) => {
                   e.style.display = '';
                 });
-                document.querySelectorAll(sel + ' .archive' + dataAttr + ' > .archive-posts > .archive-post').forEach(function(e) {
-                  e.style.display = 'none';
-                });
+                document
+                  .querySelectorAll(
+                    sel + ' .archive' + dataAttr + ' > .archive-posts > .archive-post'
+                  )
+                  .forEach((e) => {
+                    e.style.display = 'none';
+                  });
               });
             }
           });
         }
       }
       // Show categories and related posts found
-      document.querySelectorAll(categories).forEach(function(el) {
+      document.querySelectorAll(categories).forEach((el) => {
         el.style.display = '';
       });
-      document.querySelectorAll(posts).forEach(function(el) {
+      document.querySelectorAll(posts).forEach((el) => {
         el.style.display = '';
       });
-      document.querySelectorAll(posts + ' > .archive-posts > .archive-post').forEach(function(el) {
+      document.querySelectorAll(posts + ' > .archive-posts > .archive-post').forEach((el) => {
         el.style.display = '';
       });
-    },
+    }
 
     /**
      * Show all categories and all posts
      * @return {void}
      */
-    showAll: function() {
-      var sel = this.containerSelector;
-      this.categoryElements.forEach(function(el) {
+    showAll() {
+      const sel = this.containerSelector;
+      this.categoryElements.forEach((el) => {
         el.style.display = '';
       });
-      this.postElements.forEach(function(el) {
+      this.postElements.forEach((el) => {
         el.style.display = '';
       });
-      document.querySelectorAll(sel + ' .archive > .archive-posts > .archive-post').forEach(function(el) {
-        el.style.display = '';
-      });
-    },
+      document
+        .querySelectorAll(sel + ' .archive > .archive-posts > .archive-post')
+        .forEach((el) => {
+          el.style.display = '';
+        });
+    }
 
     /**
      * Hide all categories and all posts
      * @return {void}
      */
-    hideAll: function() {
-      this.categoryElements.forEach(function(el) {
+    hideAll() {
+      this.categoryElements.forEach((el) => {
         el.style.display = 'none';
       });
-      this.postElements.forEach(function(el) {
+      this.postElements.forEach((el) => {
         el.style.display = 'none';
       });
     }
-  };
+  }
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('categories-archives')) {
-      var categoriesFilter = new CategoriesFilter('#categories-archives');
+      const categoriesFilter = new CategoriesFilter('#categories-archives');
       categoriesFilter.run();
     }
   });

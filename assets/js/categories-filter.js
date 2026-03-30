@@ -60,7 +60,11 @@
      * @returns {String} Escaped selector value.
      */
     escapeCssValue(value) {
-      return value.replace(/([\\'"[\]])/g, '\\$1');
+      const input = String(value || '');
+      if (window.CSS && typeof window.CSS.escape === 'function') {
+        return window.CSS.escape(input);
+      }
+      return input.replace(/([\\'"[\]])/g, '\\$1');
     }
 
     /**
@@ -140,7 +144,9 @@
             if (parents) {
               // Show only the title of the parents's categories and hide their posts
               parents.split(',').forEach((parent) => {
-                const dataAttr = '[data-' + catAttr + "='" + this.escapeCssValue(parent) + "']";
+                const parentName = parent.trim();
+                if (!parentName) return;
+                const dataAttr = '[data-' + catAttr + "='" + this.escapeCssValue(parentName) + "']";
                 document.querySelectorAll(sel + ' .category-anchor' + dataAttr).forEach((e) => {
                   e.style.display = '';
                 });

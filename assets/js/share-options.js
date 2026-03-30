@@ -14,7 +14,9 @@
         btn.addEventListener('click', () => {
           if (!this.shareOptionsBar.classList.contains('opened')) {
             this.openShareOptions();
-            this.closeBtn.style.display = '';
+            if (this.closeBtn) {
+              this.closeBtn.style.display = '';
+            }
           }
         });
       });

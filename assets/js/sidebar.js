@@ -58,7 +58,7 @@
       });
 
       document.addEventListener('touchmove', (e) => {
-        if (!xDown || !yDown || !this.sidebar.classList.contains('pushed')) {
+        if (xDown === null || yDown === null || !this.sidebar.classList.contains('pushed')) {
           return;
         }
 
@@ -126,8 +126,9 @@
         !this.sidebar.classList.contains('processing')
       ) {
         this.sidebar.classList.add('processing');
-        this.sidebar.classList.remove('pushed', 'processing');
+        this.sidebar.classList.remove('pushed');
         setTimeout(() => {
+          this.sidebar.classList.remove('processing');
           this.body.style.overflowX = 'auto';
         }, 255);
       }

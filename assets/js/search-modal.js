@@ -68,7 +68,7 @@
     }
 
     open() {
-      if (this.isVisible(this.searchModal)) {
+      if (!this.searchModal || this.isVisible(this.searchModal)) {
         return;
       }
 

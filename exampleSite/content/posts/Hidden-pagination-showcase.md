@@ -2,9 +2,9 @@
 title: "Hidden pagination showcase"
 thumbnailImagePosition: left
 thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/cover-image-showcase/city-750.jpg
-date: 2014-08-15
+date: 2026-03-02
 categories:
-- tranquilpeak
+- tranquilpeak-4000
 - features
 tags:
 - pagination

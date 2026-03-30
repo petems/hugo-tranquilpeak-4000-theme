@@ -2,9 +2,9 @@
 title: "Hidden tag section showcase"
 thumbnailImagePosition: left
 thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/cover-image-showcase/city-750.jpg
-date: 2014-08-16
+date: 2026-03-03
 categories:
-- tranquilpeak
+- tranquilpeak-4000
 - features
 tags:
 - tags

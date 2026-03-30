@@ -1,8 +1,8 @@
 ---
-title: "Welcome to Tranquilpeak 0.5.3-BETA"
-date: 2015-06-15
+title: "Welcome to Tranquilpeak-4000 v4000.0.0"
+date: 2026-03-30
 categories:
-- tranquilpeak
+- tranquilpeak-4000
 - releases
 tags:
 - hexo theme
@@ -20,20 +20,20 @@ thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city-750
 coverImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg
 metaAlignment: center
 ---
-Tranquilpeak is a gorgeous responsive theme for Hugo blog framework. It has many features and integrated services to improve user experience.
+Tranquilpeak-4000 is a gorgeous responsive theme for Hugo blog framework. It has many features and integrated services to improve user experience.
 <!--more-->
 
-![Tranquilpeak](/img/showcase.png)
+![Tranquilpeak-4000](/img/showcase.png)
 
 {{< toc >}}
 
-# Tranquilpeak
+# Tranquilpeak-4000
 
 <!--[![Join the chat at https://gitter.im/LouisBarranqueiro/hexo-theme-tranquilpeak](https://badges.gitter.im/Join%20Chat.svg)](http s://gitter.im/LouisBarranqueiro/hexo-theme-tranquilpeak?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)-->
 
 A gorgeous responsive theme for Hugo blog framework
 
-[![Tranquilpeak](/img/showcase.png)](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite)
+[![Tranquilpeak-4000](/img/showcase.png)](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite)
 
 ## Alpha/Beta versions
 
@@ -57,8 +57,8 @@ How can I migrate my current version? Please read [CHANGELOG.md](https://github.
 ## General
 
 - **Authors**: [Thibaud Leprêtre (kakawait)](https://github.com/kakawait) and [Louis Barranqueiro (LouisBarranqueiro)](https://github.com/LouisBarranqueiro)
-- **Version**: 0.5.3-BETA (based on Hexo version 3.1.0)
-- **Compatibility**: Hugo v0.53
+- **Version**: v4000.0.0
+- **Compatibility**: Hugo v0.140.0+
 
 ## Features
 
@@ -109,7 +109,7 @@ How can I migrate my current version? Please read [CHANGELOG.md](https://github.
 
 **Please read [user documentation](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/user.md), it's short and useful to discover all features and possibilities of the theme, especially the  [writing posts](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/user.md#writing-posts) section**
 
-### For people who want to use the original version of Tranquilpeak without modifications (users)
+### For people who want to use the original version of Tranquilpeak-4000 without modifications (users)
 
 Go to the directory where you have your Hugo site and run:
 
@@ -119,20 +119,20 @@ cd themes
 git clone https://github.com/petems/hugo-tranquilpeak-4000-theme.git
 ```
 
-After installing the Tranquilpeak theme successfully, we recommend you to take a look at the [exampleSite](exampleSite) directory. You will find a working Hugo site configured with the Tranquilpeak theme that you can use as a starting point for your site.
+After installing the Tranquilpeak-4000 theme successfully, we recommend you to take a look at the [exampleSite](exampleSite) directory. You will find a working Hugo site configured with the Tranquilpeak theme that you can use as a starting point for your site.
 
 First, let's take a look at the [config.toml](exampleSite/config.tom). It will be useful to learn how to customize your site. Feel free to play around with the settings.
 
 More information on [user documentation](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/user.md) to install and configure the theme
 
-### For people who want to create their own version of tranquilpeak (developers)
+### For people who want to create their own version of tranquilpeak-4000 (developers)
 
 1. Run `git clone https://github.com/petems/hugo-tranquilpeak-4000-theme.git`
 2. Follow [developer documentation](https://github.com/petems/hugo-tranquilpeak-4000-theme/blob/main/docs/developer.md) to edit and build the theme
 
 ## Demo
 
-Check out Tranquilpeak theme demo content: [hugo-tranquilpeak-theme-4000 exampleSite](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite)
+Check out Tranquilpeak-4000 theme demo content: [hugo-tranquilpeak-theme-4000 exampleSite](https://github.com/petems/hugo-tranquilpeak-4000-theme/tree/main/exampleSite)
 
 ## Showcase
 
@@ -166,7 +166,7 @@ All kinds of contributions (enhancements, features, documentation & code improve
 
 ## Credits
 
-*Hugo* version of Tranquilpeak is a based on original *Hexo* version https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak. This version is simply a port to *Hugo* static site generator.
+*Hugo* version of Tranquilpeak-4000 is a based on original *Hexo* version https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak. This version is simply a port to *Hugo* static site generator.
 
 ## License
 

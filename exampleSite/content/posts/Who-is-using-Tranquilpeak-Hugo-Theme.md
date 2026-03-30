@@ -1,15 +1,15 @@
 ---
-title: "Who's using Tranquilpeak Hugo Theme"
-slug: who-is-using-tranquilpeak-hugo-theme
-date: 2015-06-14
+title: "Who's using Tranquilpeak-4000 Hugo Theme"
+slug: who-is-using-tranquilpeak-4000-hugo-theme
+date: 2026-03-29
 categories:
-- tranquilpeak
+- tranquilpeak-4000
 - showcase
 thumbnailImagePosition: left
 thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/cover-image-showcase/city-750.jpg
 ---
 
-Here you can find a list of the blogs that use Tranquilpeak theme, with different styles and customizations.
+Here you can find a list of the blogs that use Tranquilpeak-4000 theme, with different styles and customizations.
 
 <!--more-->
 

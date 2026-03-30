@@ -1,6 +1,6 @@
 ---
 title: "Tags plugins showcase"
-date: 2014-10-29
+date: 2026-03-05
 tags:
 - tag plugins
 - test

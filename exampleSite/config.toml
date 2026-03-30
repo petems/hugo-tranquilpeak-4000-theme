@@ -1,5 +1,5 @@
-# Tranquilpeak
-# Version : 0.5.3-BETA
+# Tranquilpeak-4000
+# Version : v4000.0.0
 # Maintainer : hugo-tranquilpeak-theme-4000 community
 
 # I STRONGLY recommend you to use a CDN to speed up loading of pages.
@@ -124,7 +124,7 @@ canonifyurls = true
   # -----------
   # Description
   # -----------
-  description = "Hugo tranquilpeak theme demo"
+  description = "Hugo tranquilpeak-4000 theme demo"
 
   # ------------------
   # Syntax highlighter
@@ -296,7 +296,7 @@ canonifyurls = true
   # ---------------
   # Comment and uncomment to enable or disable sharing options
   # If you wanna add a sharing option, read user documentation :
-  # Tranquilpeak configuration > Theme configuration > sharing-options
+  # Tranquilpeak-4000 configuration > Theme configuration > sharing-options
   [[params.sharingOptions]]
     name = "Facebook"
     icon = "fab fa-facebook-square"

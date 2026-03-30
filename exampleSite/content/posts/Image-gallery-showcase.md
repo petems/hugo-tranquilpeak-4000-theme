@@ -1,6 +1,6 @@
 ---
 title: "Image gallery showcase"
-date: 2013-02-18
+date: 2026-01-19
 thumbnailImagePosition: left
 thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/image-gallery-showcase/city-140.jpg
 gallery:
@@ -12,7 +12,7 @@ gallery:
 - //d1u9biwaxjngwg.cloudfront.net/tag-plugins-showcase/car-26.jpg "Lamborghini"
 - //d1u9biwaxjngwg.cloudfront.net/tag-plugins-showcase/car-18.jpg
 categories:
-- tranquilpeak
+- tranquilpeak-4000
 - features
 tags:
 - image gallery

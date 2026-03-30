@@ -1,10 +1,10 @@
 ---
 title: Video integrations showcase
-date: 2014-08-09
+date: 2026-02-16
 thumbnailImagePosition: left
 thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/video-integration-showcase/peak-140.jpg
 categories:
-- tranquilpeak
+- tranquilpeak-4000
 - features
 tags:
 - videos integration

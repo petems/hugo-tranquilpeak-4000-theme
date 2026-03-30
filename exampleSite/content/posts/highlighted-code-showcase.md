@@ -1,8 +1,8 @@
 ---
 title: "highlighted code showcase"
-date: 2015-03-23
+date: 2026-03-09
 categories:
-  - tranquilpeak
+  - tranquilpeak-4000
   - features
 tags:
   - highlight code
@@ -12,7 +12,7 @@ thumbnailImagePosition: left
 thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/highlighted-code-showcase/peak-140.jpg
 ---
 
-Tranquilpeak Hugo theme have its own theme to highlight source code. It's based on GitHub theme: simple and elegant. Check out how it sublimate source codes.
+Tranquilpeak-4000 Hugo theme have its own theme to highlight source code. It's based on GitHub theme: simple and elegant. Check out how it sublimate source codes.
 <!--more-->
 
 {{< toc >}}

@@ -1,8 +1,8 @@
 ---
 title: "Elements showcase"
-date: 2015-05-28
+date: 2026-03-23
 categories:
-- tranquilpeak
+- tranquilpeak-4000
 - features
 tags:
 - html elements
@@ -11,7 +11,7 @@ thumbnailImagePosition: left
 thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/elements-showcase/vintage-140.jpg
 ---
 
-Check out how Tranquilpeak theme display well HTML elements (title, paragraph, blockquote, table and more..). It's simple and elegant.
+Check out how Tranquilpeak-4000 theme display well HTML elements (title, paragraph, blockquote, table and more..). It's simple and elegant.
 <!--more-->
 
 # Heading 1

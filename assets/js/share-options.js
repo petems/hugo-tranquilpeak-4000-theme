@@ -12,7 +12,10 @@
     run() {
       this.openBtns.forEach((btn) => {
         btn.addEventListener('click', () => {
-          if (!this.shareOptionsBar.classList.contains('opened')) {
+          if (
+            !this.shareOptionsBar.classList.contains('opened') &&
+            !this.shareOptionsBar.classList.contains('processing')
+          ) {
             this.openShareOptions();
             if (this.closeBtn) {
               this.closeBtn.style.display = '';
@@ -23,7 +26,10 @@
 
       if (this.closeBtn) {
         this.closeBtn.addEventListener('click', () => {
-          if (this.shareOptionsBar.classList.contains('opened')) {
+          if (
+            this.shareOptionsBar.classList.contains('opened') &&
+            !this.shareOptionsBar.classList.contains('processing')
+          ) {
             this.closeShareOptions();
             this.closeBtn.style.display = 'none';
           }

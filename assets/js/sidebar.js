@@ -81,6 +81,7 @@
         if (window.innerWidth > this.mediumScreenWidth) {
           this.resetSidebarPosition();
           this.resetBlogPosition();
+          this.body.style.overflowX = 'auto';
         } else {
           this.closeSidebar();
         }

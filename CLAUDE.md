@@ -10,15 +10,15 @@ This is **hugo-tranquilpeak-theme-4000**, a maintained fork of the original hugo
 
 This fork aims to:
 1. **Preserve and continue**: Pick up community fixes and improvements from the original repository
-2. **Modernize**: Update compatibility from Hugo v0.53 to modern Hugo versions (✅ Tested with v0.152.2)
+2. **Modernize**: Update compatibility from Hugo v0.53 to modern Hugo versions (✅ Minimum v0.140.0 required)
 3. **Enhance**: Add new features while maintaining the elegant design philosophy
 
 ### Compatibility Status
 
 - **Original**: Hugo v0.53
-- **Tested**: ✅ Hugo v0.152.2 (January 2026)
-- **CI Testing**: Automated testing against Hugo versions 0.114.0-0.152.2
-- **Minimum Hugo**: 0.114.0 (required for Dart Sass via Hugo Pipes)
+- **Minimum Required**: Hugo v0.140.0
+- **Tested**: ✅ Hugo v0.155.3+ (March 2026)
+- **CI Testing**: Automated testing against Hugo versions 0.140.0-0.155.3+
 - **Known Issues**: See [HUGO_COMPATIBILITY_TEST.md](HUGO_COMPATIBILITY_TEST.md) for detailed compatibility report and migration guide
 
 ### Technical Stack
@@ -166,7 +166,7 @@ See HUGO_COMPATIBILITY_TEST.md for complete list of changes and migration guide.
 The repository includes automated compatibility testing via `.github/workflows/hugo-compatibility.yml`:
 
 - **Triggers**: Pushes to master/main/develop, pull requests, manual dispatch
-- **Test Matrix**: Hugo versions 0.114.0 through 0.152.2
+- **Test Matrix**: Hugo versions 0.140.0, 0.145.0, 0.150.0, 0.155.3+
 - **Strategy**: fail-fast disabled to test all versions even if one fails
 - **Requires**: Hugo extended version (for SCSS compilation)
 - **Steps**:
@@ -215,7 +215,7 @@ To test against new Hugo versions, edit `.github/workflows/hugo-compatibility.ym
 matrix:
   hugo-version:
     - '0.160.0'  # Add new version here
-    - '0.152.2'
+    - '0.155.3'
     # ... existing versions
 ```
 

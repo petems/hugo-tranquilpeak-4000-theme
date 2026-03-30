@@ -2,13 +2,14 @@
 
 ## Test Environment
 
-- **Hugo Version**: v0.152.2+extended+withdeploy darwin/arm64 BuildDate=2025-10-24T15:31:49Z
+- **Hugo Minimum Version**: v0.140.0+extended (required)
 - **Original Theme Compatibility**: Hugo v0.53
-- **Test Date**: 2026-01-27
+- **Test Date**: 2026-03-30
+- **CI Testing**: Automated testing against Hugo 0.140.0, 0.145.0, 0.150.0, 0.155.3+
 
 ## Summary
 
-✅ **The theme WORKS with Hugo v0.152.2** after applying fixes for breaking changes.
+✅ **The theme requires Hugo v0.140.0 or higher** for full functionality and ongoing support.
 
 ## Issues Found and Fixed
 
@@ -144,7 +145,8 @@ The repository now includes GitHub Actions workflow (`.github/workflows/hugo-com
 **Test Matrix:**
 - Hugo 0.155.3 (latest tested)
 - Hugo 0.150.0
-- Hugo 0.140.0
+- Hugo 0.145.0
+- Hugo 0.140.0 (minimum required)
 
 **CI Process:**
 1. Builds theme assets with `npm run build`
@@ -159,8 +161,8 @@ The repository now includes GitHub Actions workflow (`.github/workflows/hugo-com
 
 ## Conclusion
 
-The theme successfully works with Hugo v0.152.2 with minimal changes. The main blocker was the Google Analytics template, which has been fixed. Users will need to update their site configuration for the pagination setting, but this is a one-line change.
+The theme requires Hugo v0.140.0 or higher. The main blocker for older versions was the Google Analytics template, which has been fixed. Users will need to update their site configuration for the pagination setting, but this is a one-line change.
 
-The theme is **production-ready** for modern Hugo versions with the applied fix.
+The theme is **production-ready** for Hugo v0.140.0+ with the applied fixes.
 
 **Automated testing** ensures continued compatibility as new Hugo versions are released.

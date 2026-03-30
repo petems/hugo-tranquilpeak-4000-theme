@@ -1,4 +1,5 @@
 {{- $.Scratch.Set "isTypeInMainSections" false -}}
+{{- $author := (.Site.Params.author | default .Site.Params.Author) -}}
 {{- if .IsPage -}}
   {{- if in site.Params.mainSections .Type -}}
     {{- $.Scratch.Set "isTypeInMainSections" true -}}
@@ -9,13 +10,17 @@
 {{- else -}}
   {{- .Scratch.Set "sidebarBehavior" .Site.Params.sidebarBehavior -}}
 {{- end -}}
-{{- if .Site.Params.author.gravatarEmail -}}
-  {{- .Scratch.Set "gravatarEmail" .Site.Params.author.gravatarEmail -}}
+<!-- Keep compatibility with older gravatarEmail field casing. -->
+{{- if $author.gravatarEmail -}}
+  {{- .Scratch.Set "gravatarEmail" $author.gravatarEmail -}}
+{{- end -}}
+{{- if $author.gravataremail -}}
+  {{- .Scratch.Set "gravatarEmail" $author.gravataremail -}}
 {{- end -}}
 {{- if .Scratch.Get "gravatarEmail" -}}
   {{- .Scratch.Set "authorPicture" (printf "https://www.gravatar.com/avatar/%s" (urlize (md5 (.Scratch.Get "gravatarEmail")))) -}}
-{{- else if .Site.Params.author.picture -}}
-  {{- .Scratch.Set "authorPicture" (absURL .Site.Params.author.picture) -}}
+{{- else if $author.picture -}}
+  {{- .Scratch.Set "authorPicture" (absURL $author.picture) -}}
 {{- end -}}
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
@@ -30,14 +35,14 @@
       <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ .RelPermalink }}">
     {{ end }}
 
-    {{ with .Site.Params.author.googleplus }}
+    {{ with $author.googleplus }}
       <link rel="publisher" href="https://plus.google.com/{{ . | urlize }}">
     {{ end }}
 
     <link rel="canonical" href="{{ .Permalink }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.3.0/css/glightbox.min.css" integrity="sha512-T+KoG3fbDoSnlgEXFQqwcTC9AdkFIxhBlAFhGcMLIhPZQ0cc7hIoYJwk0Jm60eFGolLAqR6Nq9/oY+B6xm0gA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.3.0/css/glightbox.min.css" integrity="sha512-T+KoG3fbDoSnlgEXFQqwcTC9AdkFIxhBlmoaFqYaIjq2ShhNwNao9AKaLUPMfwiBPL0ScxAtc+UYbHAgvd+sjQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{ if .Site.Params.comment.gitalk.enable }}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.css" integrity="sha512-MLcK/YRapzET1qTBXrOiZE6bGBgtATMo2bIyalVJ8EKDEGNoeA3SPQkvWAR0zNS650YG13ocXBMeioDuZcSRuQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{ end }}

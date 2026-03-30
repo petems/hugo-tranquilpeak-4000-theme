@@ -179,6 +179,27 @@ This fork includes automated compatibility testing against multiple Hugo version
 
 **For detailed compatibility information:** See [HUGO_COMPATIBILITY_TEST.md](HUGO_COMPATIBILITY_TEST.md)
 
+## Vercel Deployment
+
+This repository includes a Vercel-oriented build flow for deploying `exampleSite` with the local theme source.
+
+### Files
+
+- `build.sh`: Reproduces the deploy-relevant CI steps (asset build + Hugo build) and sets baseURL for preview and production.
+- `vercel.json`: Pins Vercel build settings to use `build.sh` and output `public`.
+
+### Theme name used in Vercel build
+
+The Vercel build uses the local theme name `hugo-tranquilpeak-4000-theme`.
+
+### Vercel project settings
+
+1. Framework Preset: `Hugo`
+2. Install Command: `npm ci`
+3. Build Command: `bash ./build.sh`
+4. Output Directory: `public`
+5. Ensure system environment variables are exposed (`VERCEL_ENV`, `VERCEL_URL`, `VERCEL_PROJECT_PRODUCTION_URL`).
+
 ## Contributing
 
 All kinds of contributions (enhancements, features, documentation & code improvements, bugs reporting) are welcome.
